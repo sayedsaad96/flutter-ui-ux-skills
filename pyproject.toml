@@ -1,8 +1,8 @@
 [project]
 name = "flutter-ui-ux-skills"
-version = "0.1.0"
+version = "0.1.0rc1"
 requires-python = ">=3.10"
-description = "Behaviorally tested Agent Skills for high-quality Flutter UI/UX design engineering."
+description = "A design-engineering skill system for Flutter agents with behavioral evaluation."
 
 [tool.unittest]
 start-directory = "tests"
