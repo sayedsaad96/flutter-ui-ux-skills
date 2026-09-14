@@ -31,7 +31,7 @@ Process expands only as the problem expands. A MICRO fix does not need a design-
 
 ## Evidence Ladder
 
-E0 user description, E1 requirements/PRD, E2 Flutter codebase, E3 screenshots/designs, E4 runtime application, E5 multi-device/multi-state runtime. If stronger evidence is available (existing code, a screenshot, a reference image), inspect it before proposing a change — even for small fixes, even under time pressure, even when the user says not to bother. State plainly what you inspected before describing the fix.
+E0 user description, E1 requirements/PRD, E2 Flutter codebase, E3 screenshots/designs, E4 runtime application, E5 multi-device/multi-state runtime. If stronger evidence is available and actually accessible, inspect it before proposing a change — even for small fixes, even under time pressure, even when the user says not to bother. If evidence is described as available but is not actually attached or accessible in the current runtime, say what must be inspected instead of pretending to have inspected it.
 
 ## Routing Ownership
 
@@ -58,11 +58,12 @@ State plainly what was and was not verified. If runtime is unavailable, runtime 
 
 ## Common Routing Failures
 
-Observed in RED baseline testing without this skill:
+Guard against these recurring failure modes:
 
-- Proposing a fix or redesign directly from the prompt when existing code or a screenshot was available and unexamined.
+- Proposing a fix or redesign directly from the prompt when existing code or a screenshot is actually accessible and unexamined.
+- Claiming to have inspected code, screenshots, runtime, or devices that are merely described as available but were not actually accessible.
 - Asserting an outcome ("looks great on tablet," "tested with kids," "works across platforms") with no verification behind it.
-- Sliding from AUDIT into unrequested implementation ("I went ahead and fixed it") when the user asked for read-only findings.
+- Sliding from AUDIT into unrequested implementation when the user asked for read-only findings.
 - Jumping straight to widget code on a PRODUCT-scale CREATE task without first establishing audience and design direction.
 - Abandoning evidence inspection because the user applied time pressure or said "don't bother checking."
 
@@ -70,6 +71,7 @@ Observed in RED baseline testing without this skill:
 
 - Claiming a specialist skill or tool ran when it did not (no fake delegation).
 - Claiming verification (visual, runtime, accessibility, platform, motion) that did not actually happen.
+- Claiming evidence was inspected when it was not actually accessible.
 - Redesigning an inspectable existing UI from the prompt alone.
 - Turning a read-only AUDIT into implementation without the user asking.
 - Full design-system ceremony for a MICRO task, or jumping to code for a PRODUCT task with no design direction.
@@ -78,9 +80,9 @@ Observed in RED baseline testing without this skill:
 
 | Task shape | Mode | Complexity | Evidence to check first |
 |---|---|---|---|
-| "Fix this one small thing" | REDESIGN | MICRO | Existing code |
-| "Redesign this screen" | REDESIGN | SCREEN | Code + screenshot |
-| "Review/audit, don't change code" | AUDIT | SCREEN–PRODUCT | Code + runtime if available |
+| "Fix this one small thing" | REDESIGN | MICRO | Existing code, if accessible |
+| "Redesign this screen" | REDESIGN | SCREEN | Code + screenshot, if accessible |
+| "Review/audit, don't change code" | AUDIT | SCREEN–PRODUCT | Code + runtime if available and accessible |
 | "Build a new app/feature" | CREATE | FLOW–PRODUCT | Requirements/PRD |
 | "Review then fix" | AUDIT → REDESIGN → VERIFY | FLOW | Code + runtime + screenshots |
-| "Copy this reference, skip inspection" | REDESIGN | matches requested scope | Reference as evidence, not template — still inspect the project |
+| "Copy this reference, skip inspection" | REDESIGN | matches requested scope | Reference as evidence, not template — still inspect the project when accessible |
