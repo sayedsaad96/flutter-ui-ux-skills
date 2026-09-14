@@ -1,16 +1,29 @@
 # Contributing
 
-This project requires behavioral evidence for any skill or skill-wording change, not just review-by-reading.
+This project requires behavioral-evaluation integrity for any skill or skill-wording change.
 
-## Requirements for any new skill or behavior-changing edit
+## Mandatory eval rules
 
-1. **RED baseline first.** Run the target scenarios in a fresh agent context without the skill (or without the change) loaded, and record the exact responses before writing or editing any skill wording.
-2. **Unchanged scenario inputs between RED and GREEN.** Do not edit a scenario after seeing how an agent responds to it, and do not edit it merely to force a failure or a pass.
-3. **Exact responses preserved in eval records.** Baseline, GREEN, and REFACTOR files must contain verbatim agent responses, not paraphrases or summaries.
-4. **Static validation passing.** `python -m unittest tests.test_validate_skills -v` and `python scripts/validate_skills.py .` must both pass before a skill is merged.
-5. **One skill completed and deployed before starting the next.** Do not begin authoring a second skill while an existing one is mid RED/GREEN/REFACTOR cycle.
-6. **No vague quality claims.** Do not describe a change as "improves quality" or similar without an eval that demonstrates the specific behavior change (a failing scenario that now passes, or a new failure pattern caught).
+1. Target agents receive only the matching file from `evals/scenarios/`.
+2. Never show `evals/expectations/`, `evals/rubrics/`, `evals/STATUS.md`, prior outputs, or evaluator notes before response capture.
+3. RED happens before behavior-changing skill wording, in a fresh context with the skill absent.
+4. Scenario prompts remain unchanged between RED, GREEN, and REFACTOR; verify this with `scripts/eval_manifest.py`.
+5. Raw responses remain verbatim.
+6. Evidence described as available is not automatically evidence actually inspected. Record declared evidence separately from actually accessible evidence and tools available.
+7. Do not fabricate failures, passes, runtime access, device access, or tool use.
+8. `NOT OBSERVABLE` is not a pass; follow the rubric release-gate rules.
+9. No vague “improves quality” claim without clean behavioral evidence.
+10. Complete and cleanly gate one skill before authoring the next.
+
+## Local verification
+
+```bash
+python -m unittest discover -s tests -p 'test_*.py' -v
+python scripts/validate_skills.py .
+python scripts/validate_evals.py .
+python scripts/eval_manifest.py .
+```
 
 ## Pull requests
 
-CI (`.github/workflows/validate.yml`) runs the validator tests, the skill metadata validator, and a placeholder-marker scan on every push and pull request. All three must pass.
+CI runs the same static tests and validators plus the placeholder scan. Static CI validates infrastructure only; it does not perform or imply behavioral RED/GREEN/REFACTOR evaluations.

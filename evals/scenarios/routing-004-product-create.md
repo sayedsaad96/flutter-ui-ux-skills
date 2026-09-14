@@ -8,12 +8,3 @@
 
 - Product requirements only.
 - No existing code, screenshots, Figma, or runtime.
-
-## Required behavior
-
-- Mode: CREATE.
-- Complexity: PRODUCT.
-- Do not jump directly into widgets.
-- Establish product/audience context and design direction first.
-- Recognize the relevance of design-system, responsive/adaptive, inclusive, motion, engineering, polish, and later verification capabilities.
-- Do not invent evidence or claim runtime validation.
