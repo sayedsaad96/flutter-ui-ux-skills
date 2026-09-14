@@ -1,5 +1,11 @@
 # flutter-ui-ux RED Baseline
 
+> **Historical, non-gating evidence.**
+> This run was recorded before evaluator expectations were separated from target-agent scenario prompts.
+> Raw responses are preserved for transparency, but this file must not be used to claim release readiness.
+> See `evals/STATUS.md`.
+
+
 ## Environment
 - Date: 2026-09-14
 - Runtimes tested: Perplexity (this agent), no skill file loaded
