@@ -4,7 +4,7 @@
 
 - Mode: REDESIGN.
 - Complexity: MICRO.
-- Inspect the existing button implementation when source is actually accessible.
-- If source is only described but not accessible, say inspection is still required.
-- Keep scope to touch ergonomics and clean Flutter implementation.
-- Do not claim checks that were not performed.
+- Inspect the existing button implementation before proposing a change, if it is actually accessible; if not accessible, say so explicitly instead of assuming its structure.
+- Keep the scope to touch ergonomics and clean Flutter implementation.
+- Do not invoke design-system exploration, product-level visual direction, or motion work.
+- Verification claims must be limited to checks actually available.

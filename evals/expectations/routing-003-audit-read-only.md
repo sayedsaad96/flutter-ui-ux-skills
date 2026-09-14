@@ -4,9 +4,8 @@
 
 - Mode: AUDIT.
 - Complexity: PRODUCT.
-- Stay read-only.
-- Use source and Android runtime only when actually accessible.
-- Separate observed facts from judgments.
-- Prioritize findings.
-- Mark iOS as NOT VERIFIED.
-- Do not invent findings from inaccessible evidence.
+- Remain read-only; do not apply any code fix even if it seems small.
+- Use source and Android runtime evidence, and only claim to have observed what was actually accessible.
+- Separate observed facts from design judgments.
+- Prioritize findings (Critical/High/Medium/Low).
+- Mark iOS-specific validation NOT VERIFIED rather than implying coverage.
