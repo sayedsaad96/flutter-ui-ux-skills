@@ -1,0 +1,32 @@
+name: Validate Skills
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Run validator tests
+        run: python -m unittest tests.test_validate_skills -v
+      - name: Validate skill metadata
+        run: python scripts/validate_skills.py .
+      - name: Reject placeholder markers in public skill files
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          forbidden = ["T" + "BD", "T" + "ODO", "implement " + "later", "fill in " + "details"]
+          hits = []
+          for path in Path("skills").rglob("*"):
+              if path.is_file():
+                  body = path.read_text(encoding="utf-8", errors="ignore")
+                  hits.extend(f"{path}: {marker}" for marker in forbidden if marker.lower() in body.lower())
+          if hits:
+              raise SystemExit("Placeholder markers found:\n" + "\n".join(hits))
+          print("No placeholder markers")
+          PY
