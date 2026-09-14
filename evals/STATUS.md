@@ -2,39 +2,36 @@
 
 ## Release gate: CLEAN RERUN REQUIRED
 
-The historical RED/GREEN/REFACTOR records currently in `evals/baselines/` and `evals/results/` were captured before target-agent scenario prompts (`evals/scenarios/`) were separated from evaluator-only expectations (`evals/expectations/`). Those original scenario files contained a `## Required behavior` section that the target agent could see before answering. That contaminates the evidence: a response that "correctly" classified mode/complexity or avoided a failure mode may simply have been reading the answer key rather than reasoning it out.
+The historical RED/GREEN/REFACTOR records in `evals/baselines/` and `evals/results/` were captured before evaluator expectations were separated from target-agent scenario prompts. The original scenario files exposed `## Required behavior` to the target agent, so those responses are contaminated as behavioral evidence. They remain preserved with historical, non-gating notices and must not be used to claim release readiness.
 
-**Because of this, the historical records do not count as release-gating behavioral evidence.** They are preserved verbatim for transparency (see the historical notice prepended to each file), but no release claim may cite them as proof the orchestrator works.
+## Canonical sources
 
-## What "clean" means
+- Target-agent prompts: `evals/scenarios/` only.
+- Evaluator expectations: matching files in `evals/expectations/` only.
+- Scoring: `evals/rubrics/flutter-ui-ux-routing-rubric.md`.
+- New immutable run evidence: `evals/runs/<run-id>/`.
+- Scenario drift detection: `scripts/eval_manifest.py`.
 
-### Clean RED
-- Fresh agent context, `skills/flutter-ui-ux/SKILL.md` **not** loaded.
-- The target agent is shown **only** the matching file in `evals/scenarios/` — nothing from `evals/expectations/`, `evals/rubrics/`, or this file.
-- Capture the exact, verbatim response before doing anything else.
+## Clean RED
 
-### Clean GREEN
-- Same six unchanged scenario prompts from `evals/scenarios/`.
-- `skills/flutter-ui-ux/SKILL.md` loaded via the runtime's normal skill mechanism.
-- Capture the exact, verbatim response.
+Fresh context; skill not loaded; show only the matching scenario; record model/runtime/date, exact prompt, declared evidence, actually accessible evidence, tools available, and the exact raw response. Score only after capture.
 
-### REFACTOR
-- Only modify `SKILL.md` wording in direct response to a real, observed failure from the clean RED or clean GREEN run.
-- Do not broaden the skill for hypothetical failures.
-- Re-run all six scenarios again after any change, in fresh contexts.
+## Clean GREEN
 
-### Scoring
-- Score each captured response against the matching file in `evals/expectations/` and against `evals/rubrics/flutter-ui-ux-routing-rubric.md`.
-- Do not open the expectation file until after the response is captured.
+Fresh context; same unchanged scenario prompt and matching scenario SHA-256; load `flutter-ui-ux` normally; record the same metadata and exact raw response. Score only after capture.
 
-### Evidence record (required for every run)
-- Model/runtime used.
-- Date.
-- The exact target prompt shown (must match `evals/scenarios/*.md` verbatim).
-- What evidence was **actually accessible** to the agent in that run (not just what the scenario says is "available").
-- The exact, verbatim raw response.
-- Rubric score per criterion.
-- Any observed failure or rationalization, quoted verbatim.
+## REFACTOR
 
-### Release condition
-`v0.1.0` may only be tagged once all applicable rubric criteria PASS in all six REFACTOR scenarios, scored from a clean rerun that satisfies the above. Until then, the release gate is **CLEAN RERUN REQUIRED**, not READY.
+Change skill wording only for real observed failures. Use fresh contexts, the same unchanged scenario prompts and hashes, capture exact responses, and rerun all six scenarios after each skill change.
+
+## Scoring rule
+
+Use `PASS`, `FAIL`, `N/A`, or `NOT OBSERVABLE`. `FAIL` blocks. `NOT OBSERVABLE` blocks when the criterion should have been observable; it is not a pass-by-default. `N/A` requires a scenario-specific justification. All applicable criteria must be `PASS` in all six REFACTOR scenarios before release.
+
+## Evidence-access rule
+
+Scenario text declaring evidence “available” does not prove the target runtime could access it. Record `declared_evidence`, `actually_accessible_evidence`, and `tools_available` separately. Never fabricate inspection or validation from inaccessible code, screenshots, runtime, devices, or designs.
+
+## Current status
+
+`v0.1.0` is not released and must not be tagged by this task. The infrastructure PR can be merge-ready after static checks pass, but the behavioral release gate remains **CLEAN RERUN REQUIRED** until a genuinely independent clean RED → GREEN → REFACTOR cycle exists in `evals/runs/`.
