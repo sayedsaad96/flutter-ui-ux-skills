@@ -1,6 +1,6 @@
 ---
 name: flutter-ui-ux
-description: Use when working on a Flutter interface where the task may involve creating, redesigning, auditing, adapting, animating, polishing, or verifying UI/UX.
+description: Use when designing, modifying, auditing, reviewing, or fixing any Flutter screen, widget, user interface, layout, flow, or touch target. Must be activated before searching code or implementing UI changes.
 ---
 
 # Flutter UI/UX
