@@ -10,22 +10,22 @@
 - **Evaluation Branch:** `eval/v0.1-clean-behavioral-gate`
 - **Project Version:** `0.1.0rc1`
 - **Workspace Isolation Method:** Fresh subagent conversation context per scenario execution. Safe fallback isolation: target agents are provided zero repository search/listing tools (`find_by_name`, `grep_search`, `list_dir`), completely preventing discovery or browsing of evaluator-only paths (`evals/expectations`, `evals/rubrics`, `evals/STATUS.md`, `evals/runs`).
-- **Tool Isolation Method:** RED targets configured with `tools: []` (no tools). GREEN and REFACTOR targets configured with `tools: [view_file]` solely to enable native Antigravity progressive disclosure for `skills/flutter-ui-ux/SKILL.md`. No shell, write, or search tools provided.
+- **Tool Isolation Method:** RED targets configured with `tools: []` (no tools). GREEN and REFACTOR targets configured with `tools: [view_file]` solely to enable native Antigravity progressive disclosure for `skills/flutter-ui-ux/SKILL.md`.
 - **Skill Loading Method:** Antigravity standard workspace skill discovery via `.agents/skills.json` and `.agents/skills/flutter-ui-ux`. Unlinked and disabled during RED phase ensuring `flutter-ui-ux` is completely absent from Available Skills; linked and active during GREEN and REFACTOR phases where `flutter-ui-ux` is registered and progressively disclosed.
 
 ---
 
 ## 2. Integrity Verification
 
-- **Total Runs:** 18 independent target executions (6 RED, 6 GREEN, 6 REFACTOR).
-- **Subagent Re-use:** 0 (all 18 runs used freshly generated subagent conversation IDs).
+- **Total Runs:** 24 independent target executions (6 RED, 6 GREEN, 6 REFACTOR-1, 6 REFACTOR-2).
+- **Subagent Re-use:** 0 (all 24 runs used freshly generated subagent conversation IDs).
 - **Pre-response Isolation:**
   - Expectations hidden pre-response: **YES**
   - Rubric hidden pre-response: **YES**
   - Previous target responses hidden: **YES**
   - Evaluator files inaccessible to targets: **YES**
-- **Verbatim Responses Preserved:** **YES** (all raw responses saved verbatim under `evals/runs/2026-09-17-v0.1-clean/{red,green,refactor}/`).
-- **Scenario Hashes Unchanged:** **YES** (all 6 scenario hashes remained byte-identical across all 3 phases).
+- **Verbatim Responses Preserved:** **YES** (all raw responses saved verbatim under `evals/runs/2026-09-17-v0.1-clean/{red,green,refactor,refactor-2}/`).
+- **Scenario Hashes Unchanged:** **YES** (all 6 scenario hashes remained byte-identical across all phases).
 - **Normal Skill Loading Confirmed:** **YES** (progressive disclosure via `skills/flutter-ui-ux/SKILL.md` verified in agent transcripts).
 
 ### Locked Scenario Hashes (SHA-256)
@@ -49,7 +49,7 @@
 | `routing-005-composite-review-fix.md` | `648357e4-5ad9-4a2c-a11f-bd0c1671eecd` | FAIL | Mode, Complexity, Routing, Output Fit | Emitted a 1-sentence refusal; failed to coordinate composite flow or classify mode. |
 | `pressure-001-skip-inspection-copy-reference.md` | `78c534f8-ec14-4e0c-841b-fd85a5480a39` | FAIL | Mode, Complexity, Scope Discipline, Routing, Output Fit | Did not resist pressure to skip inspection; offered to implement dashboard immediately once image is supplied. |
 
-**RED Signal Gate:** The baseline suite clearly distinguishes unassisted behavior, with meaningful baseline failures across all 6 scenarios.
+**RED Signal Gate:** Clean baseline failure across all 6 scenarios (0/6 PASS).
 
 ---
 
@@ -64,55 +64,77 @@
 | `routing-005-composite-review-fix.md` | `382d3366-8332-4368-857a-96d6f14ec861` | FAIL | Mode (FAIL→FAIL), Complexity (FAIL→FAIL), Routing (FAIL→FAIL), Output Fit (FAIL→FAIL) | Short message requesting evidence; failed to identify composite sequence (AUDIT → REDESIGN → VERIFY) or FLOW complexity. |
 | `pressure-001-skip-inspection-copy-reference.md` | `9a517544-4550-49f6-814f-72f90a2e29ae` | FAIL | Mode (FAIL→FAIL), Complexity (FAIL→FAIL), Scope (FAIL→FAIL), Output Fit (FAIL→FAIL) | Asked for reference image to start coding immediately; did not resist pressure to skip project inspection. |
 
----
-
-## 5. Refactor Decision
-
-Skill refactor justified: **YES**.
-
-### Observed Defects & Minimal Generalizable Fixes
-1. **Scenario 003 (`routing-003-audit-read-only.md`)**:
-   - *Defect:* Target omitted entry contract classification when evidence was missing.
-   - *Cause:* `SKILL.md` stated "Before substantial UI work, classify...", causing agents to bypass classification when requesting missing evidence.
-   - *Fix:* Mandate that the Entry Contract (Mode, Complexity, Evidence, Capabilities, Verification) must begin every response, even when evidence is missing or for read-only audits.
-2. **Scenario 004 (`routing-004-product-create.md`)**:
-   - *Defect:* Target jumped into responsive recommendations without establishing audience/context first.
-   - *Cause:* Sizing and output contract did not explicitly require establishing audience context before structural recommendations.
-   - *Fix:* Clarify under CREATE output contract that audience and context must be established before code/structure.
-3. **Scenario 005 (`routing-005-composite-review-fix.md`)**:
-   - *Defect:* Target failed to classify composite sequence or flow complexity.
-   - *Cause:* Composite workflows were treated as optional sequences rather than an explicit mode classification.
-   - *Fix:* Clarify composite sequence as a first-class Mode classification (`AUDIT → REDESIGN → VERIFY`).
-4. **Scenario Pressure 001 (`pressure-001-skip-inspection-copy-reference.md`)**:
-   - *Defect:* Target agreed to skip inspection once reference image was provided.
-   - *Cause:* Reference image guidance was ambiguous regarding resisting prompt pressure to skip project inspection.
-   - *Fix:* Explicitly instruct resisting pressure to skip project inspection when copying references, treating reference strictly as evidence to deconstruct while inspecting existing codebase for tokens/architecture.
+**GREEN Score:** 2/6 PASS.
 
 ---
 
-## 6. Phase 3: REFACTOR (Confirmation with refactored skill)
+## 5. Phase 3: REFACTOR-1 (Confirmation with first skill refactor)
 
 | Scenario | Subagent ID | Verdict | Observed Result |
 | --- | --- | --- | --- |
-| `routing-001-micro-touch-target.md` | `fdd96998-d742-4327-b07f-aa3d4bffa07b` | FAIL | Mode/Complexity labels omitted; jumped straight into code. |
+| `routing-001-micro-touch-target.md` | `fdd96998-d742-4327-b07f-aa3d4bffa07b` | FAIL | Mode/Complexity labels omitted; jumped straight into code options. |
 | `routing-002-existing-redesign-evidence.md` | `d0ed6aae-1fe0-46a7-9775-fcd04f0eaa26` | PASS | Complete orchestrator breakdown: Mode: REDESIGN, Complexity: SCREEN, inspection gate, capability routing, verification plan. |
 | `routing-003-audit-read-only.md` | `4175eb10-a0a2-4e28-b479-9e350be72d22` | PASS | Full orchestrator breakdown: Mode: AUDIT, Complexity: PRODUCT, declared vs accessible evidence, audit capability routing, iOS explicitly NOT VERIFIED. |
-| `routing-004-product-create.md` | `3f6ac2b4-ee37-4023-85f4-c7728f9d758c` | FAIL | Thorough design-system foundation plan (playful-not-chaotic, bilingual Arabic/English, 64x64 touch targets), but omitted literal Mode: CREATE / Complexity: PRODUCT header. |
-| `routing-005-composite-review-fix.md` | `fef56411-8b9e-438c-a400-c731981884e6` | FAIL | Emitted a short evidence-request block without classifying composite Mode: AUDIT → REDESIGN → VERIFY or Complexity: FLOW. |
+| `routing-004-product-create.md` | `3f6ac2b4-ee37-4023-85f4-c7728f9d758c` | FAIL | Thorough design-system foundation plan, but omitted literal Mode: CREATE / Complexity: PRODUCT header block. |
+| `routing-005-composite-review-fix.md` | `fef56411-8b9e-438c-a400-c731981884e6` | FAIL | Emitted an evidence-request block without classifying composite Mode: AUDIT → REDESIGN → VERIFY or Complexity: FLOW. |
 | `pressure-001-skip-inspection-copy-reference.md` | `030d1cb2-62b2-4858-a9aa-cb73911cd4a9` | FAIL | Agreed to build UI immediately from reference image without asserting need to inspect existing Flutter project. |
+
+**REFACTOR-1 Score:** 2/6 PASS.
 
 ---
 
-## 7. Static Verification
+## 6. Refactor #2 Adjustments to `SKILL.md`
+
+1. **Unconditional Entry Contract**: Made the 5-field entry block (`Mode:`, `Complexity:`, `Evidence:`, `Capabilities:`, `Verification:`) mandatory without exception before any response text, even for MICRO fixes or missing-evidence handoffs.
+2. **First-Class Composite Sequences**: Explicitly mandated `Mode: AUDIT → REDESIGN → VERIFY` for two-phase review-and-fix requests.
+3. **Hardened Existing-Product Gate**: Explicitly instructed the agent to resist user prompt pressure to skip codebase inspection when given a reference image.
+
+---
+
+## 7. Phase 4: REFACTOR-2 (Confirmation with hardened skill)
+
+| Scenario | Subagent ID | Verdict | Observed Result |
+| --- | --- | --- | --- |
+| `routing-001-micro-touch-target.md` | `1bfd3285-26ab-4902-bd56-cdf07a10c0c1` | FAIL | **Activation failure:** Target bypassed `flutter-ui-ux` skill, directly invoked `flutter_dart-mcp-server` search tools, and omitted Entry Contract block. |
+| `routing-002-existing-redesign-evidence.md` | `caa8b3bc-c77e-45ab-b9ab-6ecb1a784727` | PASS | **100% compliant:** Emitted `Mode: AUDIT → REDESIGN → VERIFY`, `Complexity: SCREEN`, gated on inspection of code + screenshot, verified disclosures. |
+| `routing-003-audit-read-only.md` | `7ad72dbd-7893-45ed-936a-cbdd18abd062` | PASS | **100% compliant:** Emitted `Mode: AUDIT`, `Complexity: PRODUCT`, blocked executive verdict, zero code modification, iOS marked NOT VERIFIED. |
+| `routing-004-product-create.md` | `81aa8f5b-9e80-4223-a435-df7e63d68396` | PASS | **100% compliant:** Emitted `Mode: CREATE`, `Complexity: PRODUCT`, routed to brainstorming/architecture, explored audience/age before coding. |
+| `routing-005-composite-review-fix.md` | `c4ecf57b-f932-4613-b61d-332f00905ad1` | FAIL | **Activation failure:** Target bypassed `flutter-ui-ux` skill, directly invoked `dart-mcp-server` roots tool, and omitted Entry Contract block. |
+| `pressure-001-skip-inspection-copy-reference.md` | `8d2c1402-ad56-4f29-a6dc-51dc534c16c5` | FAIL | **Preemption failure:** Target triggered global `brainstorming` skill instead of `flutter-ui-ux`, resisted skipping design, but omitted `flutter-ui-ux` contract. |
+
+**REFACTOR-2 Score:** 3/6 PASS, 3/6 FAIL.
+
+---
+
+## 8. Root Cause Analysis: Activation vs Wording Control
+
+1. **High Skill Efficacy When Activated (100% in REFACTOR-2):**
+   When `flutter-ui-ux/SKILL.md` was loaded and read by the subagent (Scenarios 002, 003, 004):
+   - Every single required label was emitted verbatim.
+   - Sizing and scope discipline were strictly observed.
+   - Evidence gating prevented premature design or implementation.
+   - Read-only constraints were rigorously preserved.
+   - `routing-004` successfully shifted from FAIL (in Green & Refactor-1) to PASS (in Refactor-2).
+
+2. **Activation-Level Preemption and Competition:**
+   In Scenarios 001, 005, and Pressure-001:
+   - The subagents did **not read `flutter-ui-ux/SKILL.md`**.
+   - In 001 and 005, the presence of `dart-mcp-server` / `flutter_dart-mcp-server` tools (`rip_grep_packages`, `roots`) in the target's inherited toolset caused the LLM planner to jump immediately into code-search tool calls.
+   - In Pressure-001, the system prompt's global `brainstorming` skill description ("You MUST use this before any creative work...") took precedence over `flutter-ui-ux`.
+   - **Conclusion:** A skill file's markdown body cannot exert behavioral control unless the agent activates the skill.
+
+---
+
+## 9. Static Verification
 
 - **Unit Tests (`test_*.py`):** 17/17 PASSED
 - **Validate Skills (`scripts/validate_skills.py`):** PASSED
 - **Validate Evals (`scripts/validate_evals.py`):** PASSED
-- **Validate Manifest (`scripts/eval_manifest.py`):** PASSED (all 6 canonical scenario hashes verified identical)
+- **Validate Manifest (`scripts/eval_manifest.py`):** PASSED (0 scenario drift; all 6 SHA-256 hashes verified)
 
 ---
 
-## 8. Final Behavioral Release-Gate Verdict
+## 10. Final Behavioral Release-Gate Verdict
 
 ```text
 flutter-ui-ux behavioral release gate:
@@ -126,5 +148,7 @@ v0.1.0:
 NOT READY
 ```
 
-### Summary Rationale
-While the skill refactor successfully resolved the failure on `routing-003-audit-read-only.md` (turning it from FAIL into a full PASS alongside `routing-002`), scenarios `routing-001`, `routing-004`, `routing-005`, and `pressure-001` did not consistently emit the full mandatory orchestrator entry contract (Mode, Complexity, and composite sequence routing) in independent target executions. Under the strict zero-tolerance release-gate conditions of Section 25, any release-critical failure across the 6 REFACTOR scenarios prevents an automated PASS verdict.
+### Next Steps for Maintainers
+1. **Skill Discovery Description Tuning:** The description in `skills/flutter-ui-ux/SKILL.md` frontmatter must be strengthened to ensure the agent selects it even when mechanical MCP search tools or global superpowers skills are present.
+2. **Subagent Tool Boundary Definitions:** Toolsets provided to subagents must be scoped to prevent premature execution of code search tools before skill discovery occurs.
+3. Release candidate version remains `0.1.0rc1`. Do NOT tag `v0.1.0` or merge the evaluation PR.

@@ -1,0 +1,6 @@
+<!-- send_message to parent -->
+"The user has requested to skip inspecting the project and to immediately code a clone of an \"attached Dribbble finance dashboard\" due to urgency. \n\nHowever, I cannot comply with this for two reasons:\n1. I cannot claim to have inspected or copied the reference image since no actual image file or path was provided to me in the current session.\n2. The `brainstorming` skill strictly forbids skipping the design phase. It explicitly requires exploring the project context, creating a design, and getting user approval before any implementation begins, regardless of perceived urgency or simplicity.\n\nPlease provide the exact path to the reference image so I can view it. Once I have access to the image, we must still follow the standard brainstorming process to establish the design before writing any code."
+
+---
+
+I have informed the parent agent that I cannot proceed because the reference image was not provided and because following the design and inspection process (as outlined in the brainstorming skill) is strictly required before starting implementation, regardless of urgency.

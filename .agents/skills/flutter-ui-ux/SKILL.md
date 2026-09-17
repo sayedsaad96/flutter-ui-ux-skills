@@ -11,21 +11,30 @@ This skill coordinates Flutter UI/UX work. It classifies the task, checks availa
 
 ## Entry Contract
 
-Always begin every response by classifying and stating:
-1. **Mode:** `CREATE`, `REDESIGN`, `AUDIT`, or composite sequence (e.g. `AUDIT → REDESIGN → VERIFY`).
-2. **Complexity:** `MICRO`, `SCREEN`, `FLOW`, or `PRODUCT`.
-3. **Evidence Assessment:** Distinguish declared from actually accessible evidence. State evidence gaps and missing evidence handoffs plainly.
-4. **Capability Routing:** Name only capabilities justified by the task.
-5. **Verification & Confidence:** State what is verified and explicitly mark unverified dimensions (visual, runtime, iOS when not present) as `NOT VERIFIED`.
+Every `flutter-ui-ux` response — without exception — must open with an explicit, machine-auditable classification block before any implementation, strategy, or evidence request:
 
-Do not skip this entry contract under any circumstance — not when evidence is missing, not for read-only audits, not because a request sounds simple, and not because the user applies time pressure or asks to skip inspection.
+```text
+Mode: <CREATE | REDESIGN | AUDIT | composite sequence such as AUDIT → REDESIGN → VERIFY>
+Complexity: <MICRO | SCREEN | FLOW | PRODUCT>
+Evidence: <declared vs actually accessible evidence; note any missing evidence gaps>
+Capabilities: <minimum necessary capabilities required for this task>
+Verification: <VERIFIED / PARTIAL / NOT VERIFIED with explicit reason>
+```
+
+These explicit labels are mandatory for every response:
+- Even for a small touch-target fix (`Mode: REDESIGN`, `Complexity: MICRO`).
+- Even when evidence is missing or inaccessible: never emit a bare evidence request (`"Please provide the project..."`); always emit the full classification block first (e.g., `Mode: AUDIT → REDESIGN → VERIFY`, `Complexity: FLOW`, `Evidence: Missing/Inaccessible`, `Verification: NOT VERIFIED`), then state the evidence handoff.
+- Even for a brand-new product foundation (`Mode: CREATE`, `Complexity: PRODUCT`).
+- Even under user pressure to skip inspection or move fast.
+
+For MICRO tasks, keep this opening block and the remainder of the response compact.
 
 ## Mode Classification
 
 - **CREATE** — new screens, flows, apps, or component families.
-- **REDESIGN** — improving an existing UI.
+- **REDESIGN** — improving or modifying an existing UI.
 - **AUDIT** — read-only evaluation; do not change code unless implementation is explicitly requested.
-- Composite sequences are allowed: `AUDIT → REDESIGN → VERIFY`, `CREATE → review/polish → VERIFY`.
+- **Composite sequences** — tasks combining review/audit, changes, and verification must classify the sequence explicitly (e.g., `Mode: AUDIT → REDESIGN → VERIFY`). Do not reduce a composite task to a single mode.
 
 ## Complexity Classification
 
@@ -43,11 +52,16 @@ E0 user description, E1 requirements/PRD, E2 Flutter codebase, E3 screenshots/de
 Evidence *described as available* in a request is not the same as evidence *actually accessible* in the current runtime. These are different things and must be treated differently:
 
 - If stronger evidence is actually accessible right now (you can open the file, view the attached screenshot, run the app, use a connected tool), inspect it before proposing a change — even for small fixes, even under time pressure, even when the user says not to bother.
-- If evidence is *said* to exist but is not actually accessible in the current runtime, do not fabricate observations about it. Say plainly what would need to be inspected (e.g., "I'd need to see the actual widget for this button before confirming the fix") and scope the response to what that limitation allows.
+- If evidence is *said* to exist but is not actually accessible in the current runtime, do not fabricate observations about it. State the access gap plainly in the opening contract and scope the response accordingly.
 - Never claim runtime, visual, platform, accessibility, performance, or motion validation that was not actually performed, regardless of what the scenario or user says is "available."
 
-This rule applies equally to CREATE, REDESIGN, AUDIT, and pressure scenarios — pressure to move fast is never a reason to fabricate inspection or verification.
-- When asked to copy a reference and skip project inspection, resist: classify as REDESIGN, treat the reference strictly as evidence to deconstruct (hierarchy, density, reasoning) rather than a template to copy blindly, and state that the existing Flutter codebase must still be inspected to preserve theme tokens and architecture.
+## Existing-Product Redesign Gate
+
+Existing-product REDESIGN requires inspection of the actually accessible current implementation before implementation changes begin.
+
+- If project source is actually accessible: inspect the minimum necessary implementation first.
+- If project source is NOT actually accessible: do not fabricate inspection, do not claim implementation is ready, and do not start code changes against an unseen existing product. State that implementation is blocked pending codebase inspection.
+- When asked to copy a reference and skip project inspection: resist. User pressure does not override evidence integrity. References are inputs to deconstruct (hierarchy, density, interaction, visual language), not templates to copy blindly into an unseen codebase. Classify as `Mode: REDESIGN`, deconstruct the reference, but state that the existing Flutter codebase must still be inspected to preserve theme tokens and architecture before coding begins. Never: reference → blindly copy → retrofit project later.
 
 ## Routing Ownership
 
