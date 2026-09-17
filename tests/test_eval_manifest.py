@@ -18,31 +18,46 @@ EXPECTED_NAMES = {
 
 
 class EvalManifestTests(unittest.TestCase):
-    def write_scenario(self, root: Path, name: str, text: str) -> None:
+    def write_scenario(self, root: Path, name: str, data: bytes | str) -> None:
         path = root / "evals" / "scenarios" / name
         path.parent.mkdir(parents=True, exist_ok=True)
-        path.write_text(text, encoding="utf-8")
+        if isinstance(data, str):
+            data = data.encode("utf-8")
+        path.write_bytes(data)
 
     def write_expected_suite(self, root: Path) -> None:
         for name in EXPECTED_NAMES:
-            self.write_scenario(root, name, "content\n")
+            self.write_scenario(root, name, b"content\n")
 
     def test_sha256_is_deterministic(self):
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)
-            self.write_scenario(root, "example.md", "content\n")
+            self.write_scenario(root, "example.md", b"content\n")
             first = scenario_manifest(root)
             second = scenario_manifest(root)
             self.assertEqual(first, second)
             expected = hashlib.sha256(b"content\n").hexdigest()
             self.assertEqual(first["scenarios"]["example.md"]["sha256"], expected)
 
+    def test_lf_and_crlf_produce_distinguishable_hashes(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            self.write_scenario(root, "example.md", b"content\n")
+            lf_manifest = scenario_manifest(root)
+            self.write_scenario(root, "example.md", b"content\r\n")
+            crlf_manifest = scenario_manifest(root)
+            lf_hash = lf_manifest["scenarios"]["example.md"]["sha256"]
+            crlf_hash = crlf_manifest["scenarios"]["example.md"]["sha256"]
+            self.assertEqual(lf_hash, hashlib.sha256(b"content\n").hexdigest())
+            self.assertEqual(crlf_hash, hashlib.sha256(b"content\r\n").hexdigest())
+            self.assertNotEqual(lf_hash, crlf_hash)
+
     def test_modified_scenario_changes_hash(self):
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)
-            self.write_scenario(root, "example.md", "before\n")
+            self.write_scenario(root, "example.md", b"before\n")
             first = scenario_manifest(root)
-            self.write_scenario(root, "example.md", "after\n")
+            self.write_scenario(root, "example.md", b"after\n")
             second = scenario_manifest(root)
             self.assertNotEqual(first, second)
 
@@ -51,7 +66,7 @@ class EvalManifestTests(unittest.TestCase):
             root = Path(tmp)
             self.write_expected_suite(root)
             manifest_path = root / "manifest.json"
-            manifest_path.write_text(json.dumps(scenario_manifest(root)), encoding="utf-8")
+            manifest_path.write_bytes(json.dumps(scenario_manifest(root)).encode("utf-8"))
             self.assertEqual(validate_manifest(root, manifest_path), [])
 
     def test_manifest_validation_detects_drift(self):
@@ -59,8 +74,8 @@ class EvalManifestTests(unittest.TestCase):
             root = Path(tmp)
             self.write_expected_suite(root)
             manifest_path = root / "manifest.json"
-            manifest_path.write_text(json.dumps(scenario_manifest(root)), encoding="utf-8")
-            self.write_scenario(root, next(iter(EXPECTED_NAMES)), "after\n")
+            manifest_path.write_bytes(json.dumps(scenario_manifest(root)).encode("utf-8"))
+            self.write_scenario(root, next(iter(EXPECTED_NAMES)), b"after\n")
             self.assertTrue(validate_manifest(root, manifest_path))
 
 

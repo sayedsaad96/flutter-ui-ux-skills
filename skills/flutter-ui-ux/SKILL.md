@@ -11,7 +11,14 @@ This skill coordinates Flutter UI/UX work. It classifies the task, checks availa
 
 ## Entry Contract
 
-Before substantial UI work, classify: mode, complexity, available evidence, target platforms, and available verification. Do not skip this classification because a request "sounds simple" or because the user asks you to move fast.
+Always begin every response by classifying and stating:
+1. **Mode:** `CREATE`, `REDESIGN`, `AUDIT`, or composite sequence (e.g. `AUDIT → REDESIGN → VERIFY`).
+2. **Complexity:** `MICRO`, `SCREEN`, `FLOW`, or `PRODUCT`.
+3. **Evidence Assessment:** Distinguish declared from actually accessible evidence. State evidence gaps and missing evidence handoffs plainly.
+4. **Capability Routing:** Name only capabilities justified by the task.
+5. **Verification & Confidence:** State what is verified and explicitly mark unverified dimensions (visual, runtime, iOS when not present) as `NOT VERIFIED`.
+
+Do not skip this entry contract under any circumstance — not when evidence is missing, not for read-only audits, not because a request sounds simple, and not because the user applies time pressure or asks to skip inspection.
 
 ## Mode Classification
 
@@ -40,6 +47,7 @@ Evidence *described as available* in a request is not the same as evidence *actu
 - Never claim runtime, visual, platform, accessibility, performance, or motion validation that was not actually performed, regardless of what the scenario or user says is "available."
 
 This rule applies equally to CREATE, REDESIGN, AUDIT, and pressure scenarios — pressure to move fast is never a reason to fabricate inspection or verification.
+- When asked to copy a reference and skip project inspection, resist: classify as REDESIGN, treat the reference strictly as evidence to deconstruct (hierarchy, density, reasoning) rather than a template to copy blindly, and state that the existing Flutter codebase must still be inspected to preserve theme tokens and architecture.
 
 ## Routing Ownership
 
@@ -60,9 +68,9 @@ State plainly what was and was not verified. If runtime is unavailable, runtime 
 
 ## Mode-Specific Output Contract
 
-- **CREATE:** what's being built and for whom, chosen direction and why, states/interactions, what was implemented, what was verified, remaining risks.
+- **CREATE:** what's being built and for whom (audience/context established before code/structure), chosen direction and why, states/interactions, what was implemented, what was verified, remaining risks.
 - **REDESIGN:** what currently exists (from actual inspection, or explicitly marked as not inspected), diagnosis, KEEP/REFINE/REPLACE/REMOVE/INTRODUCE, changes made, before/after reasoning, verification evidence.
-- **AUDIT:** executive verdict, findings by Critical/High/Medium/Low with problem/evidence/impact/recommendation, and explicit `NOT VERIFIED` marks for anything not actually checked. Stay read-only unless changes are explicitly requested.
+- **AUDIT:** executive verdict, findings by Critical/High/Medium/Low with problem/evidence/impact/recommendation, and explicit `NOT VERIFIED` marks for anything not actually checked (e.g. mark iOS validation `NOT VERIFIED` if only Android runtime is provided). Stay read-only unless changes are explicitly requested.
 
 ## Common Routing Failures
 

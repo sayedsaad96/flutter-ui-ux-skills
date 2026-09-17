@@ -34,4 +34,8 @@ Scenario text declaring evidence “available” does not prove the target runti
 
 ## Current status
 
-`v0.1.0` is not released and must not be tagged by this task. The infrastructure PR can be merge-ready after static checks pass, but the behavioral release gate remains **CLEAN RERUN REQUIRED** until a genuinely independent clean RED → GREEN → REFACTOR cycle exists in `evals/runs/`.
+The first clean behavioral evaluation run (`2026-09-17-v0.1-clean`) was executed with 18 independent Antigravity target subagents across RED, GREEN, and REFACTOR phases with full evaluator-file isolation.
+
+- Behavioral gate verdict: **FAIL**
+- Version `v0.1.0`: **NOT READY** (further skill tuning required on scenarios 001, 004, 005, and pressure-001 to consistently emit full orchestrator contracts).
+- Run artifacts: `evals/runs/2026-09-17-v0.1-clean/`
