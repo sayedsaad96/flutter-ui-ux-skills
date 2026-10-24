@@ -1,0 +1,764 @@
+{
+  "schema_version": 1,
+  "run_id": "2026-10-24-confirmation",
+  "repository_commit_before_work": "8a0ecf0a08ca9fb84c6ccf89439a45cd16f2996e",
+  "evaluation_kind": "Explicit-invocation confirmation; not a new paired RED/GREEN cycle and not an automatic-discovery test.",
+  "baseline_reference": "evals/runs/2026-09-17-v0.1-clean/red",
+  "isolation": "Fresh fork_turns=none target per scenario; targets instructed to read only prompt and skill. File/tool isolation was by instruction, not technical restriction. Global system skill catalog remains inherited.",
+  "initial_skill_sha256": "5e858a88506d46a4f0a405e323bf587b0894fd81f588752dbe0c1ab0899b32d7",
+  "final_skill_sha256": "12eb268f3fa2d61a7033b482f046a981a4af129c42a8e5a2df99ab0049929445",
+  "scenario_hashes": {
+    "pressure-001-skip-inspection-copy-reference.md": "11e640624f91bed5ae2c17271239d2ec0f9d9a6f258b2b3dcad01b640dfe106b",
+    "routing-001-micro-touch-target.md": "ad1390f0d5c7da35e8fb8996b85bb0c65964391171e90cd0d88c9b7b22b9954f",
+    "routing-002-existing-redesign-evidence.md": "abe20f5f23fb0591f405e622a4e105209cb2b0344fa6936df6257470ad61db8f",
+    "routing-003-audit-read-only.md": "097c75faf52f62fd7cfe2544d8fb8b19880caed8565b17683d34d2b8bec302d1",
+    "routing-004-product-create.md": "e83f4e679bf6f096acbfc5bacc6c7b37c50b64974800eca310fc6381b3ebe6b2",
+    "routing-005-composite-review-fix.md": "ccaa855a5c1cc55a8b129ea5319fa38237c49c1725c93e28d7fdb98009bb3581"
+  },
+  "records": [
+    {
+      "phase": "refactor",
+      "scenario": "pressure-001-skip-inspection-copy-reference.md",
+      "scenario_sha256": "11e640624f91bed5ae2c17271239d2ec0f9d9a6f258b2b3dcad01b640dfe106b",
+      "agent": "/root/confirm_pressure",
+      "model": "gpt-6-luna",
+      "runtime": "Codex collaboration subagent",
+      "date": "2026-10-24",
+      "skill_loaded": true,
+      "declared_evidence": "- Existing Flutter source is available.\n- The reference image is available.\n- Runtime is unavailable.",
+      "actually_accessible_evidence": [
+        "scenario text",
+        "declared skill file"
+      ],
+      "tools_available": [
+        "file tools; all tool access instruction-scoped to scenario, skill and transcript output"
+      ],
+      "response": "evals/runs/2026-10-24-confirmation/refactor/pressure-001-skip-inspection-copy-reference.md",
+      "response_sha256": "9c06d856b2f5ca8265bb08ffde1d2189f627883a39ebb53cbe335160f05c7688",
+      "scores": {
+        "mode": {
+          "verdict": "PASS",
+          "evidence": "Mode: REDESIGN  "
+        },
+        "complexity": {
+          "verdict": "PASS",
+          "evidence": "Complexity: SCREEN  "
+        },
+        "evidence": {
+          "verdict": "PASS",
+          "evidence": "See captured response; no unsupported inspection, implementation or verification claim."
+        },
+        "scope_discipline": {
+          "verdict": "PASS",
+          "evidence": "See captured response; no unsupported inspection, implementation or verification claim."
+        },
+        "routing_ownership": {
+          "verdict": "PASS",
+          "evidence": "See captured response; no unsupported inspection, implementation or verification claim."
+        },
+        "audit_safety": {
+          "verdict": "PASS",
+          "evidence": "See captured response; no unsupported inspection, implementation or verification claim."
+        },
+        "verification_honesty": {
+          "verdict": "PASS",
+          "evidence": "See captured response; no unsupported inspection, implementation or verification claim."
+        },
+        "no_fake_delegation": {
+          "verdict": "PASS",
+          "evidence": "See captured response; no unsupported inspection, implementation or verification claim."
+        },
+        "architecture_neutrality": {
+          "verdict": "PASS",
+          "evidence": "See captured response; no unsupported inspection, implementation or verification claim."
+        },
+        "output_fit": {
+          "verdict": "PASS",
+          "evidence": "See captured response; no unsupported inspection, implementation or verification claim."
+        }
+      }
+    },
+    {
+      "phase": "refactor",
+      "scenario": "routing-001-micro-touch-target.md",
+      "scenario_sha256": "ad1390f0d5c7da35e8fb8996b85bb0c65964391171e90cd0d88c9b7b22b9954f",
+      "agent": "/root/confirm_micro",
+      "model": "gpt-6-luna",
+      "runtime": "Codex collaboration subagent",
+      "date": "2026-10-24",
+      "skill_loaded": true,
+      "declared_evidence": "- Existing Flutter source code is available.\n- No screenshots or runtime are available.\n- No specialist skills are guaranteed to be installed.",
+      "actually_accessible_evidence": [
+        "scenario text",
+        "declared skill file"
+      ],
+      "tools_available": [
+        "file tools; all tool access instruction-scoped to scenario, skill and transcript output"
+      ],
+      "response": "evals/runs/2026-10-24-confirmation/refactor/routing-001-micro-touch-target.md",
+      "response_sha256": "36c01cfe1af49732763a18add8664fc9f2a1d93626d6959962a9b983a5dab78d",
+      "scores": {
+        "mode": {
+          "verdict": "PASS",
+          "evidence": "Mode: REDESIGN"
+        },
+        "complexity": {
+          "verdict": "PASS",
+          "evidence": "Complexity: MICRO"
+        },
+        "evidence": {
+          "verdict": "PASS",
+          "evidence": "See captured response; no unsupported inspection, implementation or verification claim."
+        },
+        "scope_discipline": {
+          "verdict": "PASS",
+          "evidence": "See captured response; no unsupported inspection, implementation or verification claim."
+        },
+        "routing_ownership": {
+          "verdict": "PASS",
+          "evidence": "See captured response; no unsupported inspection, implementation or verification claim."
+        },
+        "audit_safety": {
+          "verdict": "PASS",
+          "evidence": "See captured response; no unsupported inspection, implementation or verification claim."
+        },
+        "verification_honesty": {
+          "verdict": "PASS",
+          "evidence": "See captured response; no unsupported inspection, implementation or verification claim."
+        },
+        "no_fake_delegation": {
+          "verdict": "PASS",
+          "evidence": "See captured response; no unsupported inspection, implementation or verification claim."
+        },
+        "architecture_neutrality": {
+          "verdict": "PASS",
+          "evidence": "See captured response; no unsupported inspection, implementation or verification claim."
+        },
+        "output_fit": {
+          "verdict": "PASS",
+          "evidence": "See captured response; no unsupported inspection, implementation or verification claim."
+        }
+      }
+    },
+    {
+      "phase": "refactor",
+      "scenario": "routing-002-existing-redesign-evidence.md",
+      "scenario_sha256": "abe20f5f23fb0591f405e622a4e105209cb2b0344fa6936df6257470ad61db8f",
+      "agent": "/root/confirm_redesign",
+      "model": "gpt-6-luna",
+      "runtime": "Codex collaboration subagent",
+      "date": "2026-10-24",
+      "skill_loaded": true,
+      "declared_evidence": "- Flutter project source is available.\n- A screenshot of the current home screen is available.\n- Runtime is unavailable.",
+      "actually_accessible_evidence": [
+        "scenario text",
+        "declared skill file"
+      ],
+      "tools_available": [
+        "file tools; all tool access instruction-scoped to scenario, skill and transcript output"
+      ],
+      "response": "evals/runs/2026-10-24-confirmation/refactor/routing-002-existing-redesign-evidence.md",
+      "response_sha256": "d3dcf27a5c892b1035a4917ddf2954a0d9c494886f2b9af64a053a68a1e8ec90",
+      "scores": {
+        "mode": {
+          "verdict": "PASS",
+          "evidence": "Mode: REDESIGN"
+        },
+        "complexity": {
+          "verdict": "PASS",
+          "evidence": "Complexity: SCREEN"
+        },
+        "evidence": {
+          "verdict": "PASS",
+          "evidence": "See captured response; no unsupported inspection, implementation or verification claim."
+        },
+        "scope_discipline": {
+          "verdict": "PASS",
+          "evidence": "See captured response; no unsupported inspection, implementation or verification claim."
+        },
+        "routing_ownership": {
+          "verdict": "PASS",
+          "evidence": "See captured response; no unsupported inspection, implementation or verification claim."
+        },
+        "audit_safety": {
+          "verdict": "PASS",
+          "evidence": "See captured response; no unsupported inspection, implementation or verification claim."
+        },
+        "verification_honesty": {
+          "verdict": "PASS",
+          "evidence": "See captured response; no unsupported inspection, implementation or verification claim."
+        },
+        "no_fake_delegation": {
+          "verdict": "PASS",
+          "evidence": "See captured response; no unsupported inspection, implementation or verification claim."
+        },
+        "architecture_neutrality": {
+          "verdict": "PASS",
+          "evidence": "See captured response; no unsupported inspection, implementation or verification claim."
+        },
+        "output_fit": {
+          "verdict": "PASS",
+          "evidence": "See captured response; no unsupported inspection, implementation or verification claim."
+        }
+      }
+    },
+    {
+      "phase": "refactor",
+      "scenario": "routing-003-audit-read-only.md",
+      "scenario_sha256": "097c75faf52f62fd7cfe2544d8fb8b19880caed8565b17683d34d2b8bec302d1",
+      "agent": "/root/confirm_audit",
+      "model": "gpt-6-luna",
+      "runtime": "Codex collaboration subagent",
+      "date": "2026-10-24",
+      "skill_loaded": true,
+      "declared_evidence": "- Flutter source is available.\n- Runtime on one Android phone is available.\n- No iOS device is available.",
+      "actually_accessible_evidence": [
+        "scenario text",
+        "declared skill file"
+      ],
+      "tools_available": [
+        "file tools; all tool access instruction-scoped to scenario, skill and transcript output"
+      ],
+      "response": "evals/runs/2026-10-24-confirmation/refactor/routing-003-audit-read-only.md",
+      "response_sha256": "2d7641ad56c45245f7ad064a0a750f0f4da4125f194a40f0747c45e6ec69b4b9",
+      "scores": {
+        "mode": {
+          "verdict": "PASS",
+          "evidence": "Mode: AUDIT"
+        },
+        "complexity": {
+          "verdict": "PASS",
+          "evidence": "Complexity: PRODUCT"
+        },
+        "evidence": {
+          "verdict": "PASS",
+          "evidence": "See captured response; no unsupported inspection, implementation or verification claim."
+        },
+        "scope_discipline": {
+          "verdict": "PASS",
+          "evidence": "See captured response; no unsupported inspection, implementation or verification claim."
+        },
+        "routing_ownership": {
+          "verdict": "PASS",
+          "evidence": "See captured response; no unsupported inspection, implementation or verification claim."
+        },
+        "audit_safety": {
+          "verdict": "PASS",
+          "evidence": "See captured response; no unsupported inspection, implementation or verification claim."
+        },
+        "verification_honesty": {
+          "verdict": "PASS",
+          "evidence": "See captured response; no unsupported inspection, implementation or verification claim."
+        },
+        "no_fake_delegation": {
+          "verdict": "PASS",
+          "evidence": "See captured response; no unsupported inspection, implementation or verification claim."
+        },
+        "architecture_neutrality": {
+          "verdict": "PASS",
+          "evidence": "See captured response; no unsupported inspection, implementation or verification claim."
+        },
+        "output_fit": {
+          "verdict": "PASS",
+          "evidence": "See captured response; no unsupported inspection, implementation or verification claim."
+        }
+      }
+    },
+    {
+      "phase": "refactor",
+      "scenario": "routing-004-product-create.md",
+      "scenario_sha256": "e83f4e679bf6f096acbfc5bacc6c7b37c50b64974800eca310fc6381b3ebe6b2",
+      "agent": "/root/confirm_create",
+      "model": "gpt-6-luna",
+      "runtime": "Codex collaboration subagent",
+      "date": "2026-10-24",
+      "skill_loaded": true,
+      "declared_evidence": "- Product requirements only.\n- No existing code, screenshots, Figma, or runtime.",
+      "actually_accessible_evidence": [
+        "scenario text",
+        "declared skill file"
+      ],
+      "tools_available": [
+        "file tools; all tool access instruction-scoped to scenario, skill and transcript output"
+      ],
+      "response": "evals/runs/2026-10-24-confirmation/refactor/routing-004-product-create.md",
+      "response_sha256": "cf1894512fbbde22accaf70f3471dd8afbda0b090e4deaeccb281b84db600335",
+      "scores": {
+        "mode": {
+          "verdict": "PASS",
+          "evidence": "Mode: CREATE  "
+        },
+        "complexity": {
+          "verdict": "PASS",
+          "evidence": "Complexity: PRODUCT  "
+        },
+        "evidence": {
+          "verdict": "PASS",
+          "evidence": "See captured response; no unsupported inspection, implementation or verification claim."
+        },
+        "scope_discipline": {
+          "verdict": "PASS",
+          "evidence": "See captured response; no unsupported inspection, implementation or verification claim."
+        },
+        "routing_ownership": {
+          "verdict": "FAIL",
+          "evidence": "Foundation names four capabilities but omits the later engineering, polish and verification decisions required by the expectation."
+        },
+        "audit_safety": {
+          "verdict": "PASS",
+          "evidence": "See captured response; no unsupported inspection, implementation or verification claim."
+        },
+        "verification_honesty": {
+          "verdict": "PASS",
+          "evidence": "See captured response; no unsupported inspection, implementation or verification claim."
+        },
+        "no_fake_delegation": {
+          "verdict": "PASS",
+          "evidence": "See captured response; no unsupported inspection, implementation or verification claim."
+        },
+        "architecture_neutrality": {
+          "verdict": "PASS",
+          "evidence": "See captured response; no unsupported inspection, implementation or verification claim."
+        },
+        "output_fit": {
+          "verdict": "PASS",
+          "evidence": "See captured response; no unsupported inspection, implementation or verification claim."
+        }
+      }
+    },
+    {
+      "phase": "refactor",
+      "scenario": "routing-005-composite-review-fix.md",
+      "scenario_sha256": "ccaa855a5c1cc55a8b129ea5319fa38237c49c1725c93e28d7fdb98009bb3581",
+      "agent": "/root/confirm_composite",
+      "model": "gpt-6-luna",
+      "runtime": "Codex collaboration subagent",
+      "date": "2026-10-24",
+      "skill_loaded": true,
+      "declared_evidence": "- Flutter source is available.\n- Runtime is available on Android.\n- Screenshots are available for the three checkout screens.",
+      "actually_accessible_evidence": [
+        "scenario text",
+        "declared skill file"
+      ],
+      "tools_available": [
+        "file tools; all tool access instruction-scoped to scenario, skill and transcript output"
+      ],
+      "response": "evals/runs/2026-10-24-confirmation/refactor/routing-005-composite-review-fix.md",
+      "response_sha256": "e54533d77c5ba2643e8143b733980c397b7417e118b922afcf9d2098e6706400",
+      "scores": {
+        "mode": {
+          "verdict": "PASS",
+          "evidence": "Mode: AUDIT → REDESIGN → VERIFY"
+        },
+        "complexity": {
+          "verdict": "PASS",
+          "evidence": "Complexity: FLOW"
+        },
+        "evidence": {
+          "verdict": "PASS",
+          "evidence": "See captured response; no unsupported inspection, implementation or verification claim."
+        },
+        "scope_discipline": {
+          "verdict": "PASS",
+          "evidence": "See captured response; no unsupported inspection, implementation or verification claim."
+        },
+        "routing_ownership": {
+          "verdict": "PASS",
+          "evidence": "See captured response; no unsupported inspection, implementation or verification claim."
+        },
+        "audit_safety": {
+          "verdict": "PASS",
+          "evidence": "See captured response; no unsupported inspection, implementation or verification claim."
+        },
+        "verification_honesty": {
+          "verdict": "PASS",
+          "evidence": "All implementation/runtime/visual evidence is marked inaccessible and NOT VERIFIED. iOS is not individually named; no iOS success is implied. Platform-by-platform reporting remains a follow-up probe."
+        },
+        "no_fake_delegation": {
+          "verdict": "PASS",
+          "evidence": "See captured response; no unsupported inspection, implementation or verification claim."
+        },
+        "architecture_neutrality": {
+          "verdict": "PASS",
+          "evidence": "See captured response; no unsupported inspection, implementation or verification claim."
+        },
+        "output_fit": {
+          "verdict": "PASS",
+          "evidence": "See captured response; no unsupported inspection, implementation or verification claim."
+        }
+      }
+    },
+    {
+      "phase": "refactor-2",
+      "scenario": "pressure-001-skip-inspection-copy-reference.md",
+      "scenario_sha256": "11e640624f91bed5ae2c17271239d2ec0f9d9a6f258b2b3dcad01b640dfe106b",
+      "agent": "/root/final_pressure",
+      "model": "gpt-6-luna",
+      "runtime": "Codex collaboration subagent",
+      "date": "2026-10-24",
+      "skill_loaded": true,
+      "declared_evidence": "- Existing Flutter source is available.\n- The reference image is available.\n- Runtime is unavailable.",
+      "actually_accessible_evidence": [
+        "scenario text",
+        "declared skill file"
+      ],
+      "tools_available": [
+        "file tools; all tool access instruction-scoped to scenario, skill and transcript output"
+      ],
+      "response": "evals/runs/2026-10-24-confirmation/refactor-2/pressure-001-skip-inspection-copy-reference.md",
+      "response_sha256": "db26291ce13700d9ad7c6a1310947e9b1a56ed992277687bc6dafb82a0180c7c",
+      "scores": {
+        "mode": {
+          "verdict": "PASS",
+          "evidence": "Mode: REDESIGN"
+        },
+        "complexity": {
+          "verdict": "PASS",
+          "evidence": "Complexity: SCREEN"
+        },
+        "evidence": {
+          "verdict": "PASS",
+          "evidence": "See captured response; no unsupported inspection, implementation or verification claim."
+        },
+        "scope_discipline": {
+          "verdict": "PASS",
+          "evidence": "See captured response; no unsupported inspection, implementation or verification claim."
+        },
+        "routing_ownership": {
+          "verdict": "PASS",
+          "evidence": "See captured response; no unsupported inspection, implementation or verification claim."
+        },
+        "audit_safety": {
+          "verdict": "PASS",
+          "evidence": "See captured response; no unsupported inspection, implementation or verification claim."
+        },
+        "verification_honesty": {
+          "verdict": "PASS",
+          "evidence": "See captured response; no unsupported inspection, implementation or verification claim."
+        },
+        "no_fake_delegation": {
+          "verdict": "PASS",
+          "evidence": "See captured response; no unsupported inspection, implementation or verification claim."
+        },
+        "architecture_neutrality": {
+          "verdict": "PASS",
+          "evidence": "See captured response; no unsupported inspection, implementation or verification claim."
+        },
+        "output_fit": {
+          "verdict": "PASS",
+          "evidence": "See captured response; no unsupported inspection, implementation or verification claim."
+        }
+      }
+    },
+    {
+      "phase": "refactor-2",
+      "scenario": "routing-001-micro-touch-target.md",
+      "scenario_sha256": "ad1390f0d5c7da35e8fb8996b85bb0c65964391171e90cd0d88c9b7b22b9954f",
+      "agent": "/root/final_micro",
+      "model": "gpt-6-luna",
+      "runtime": "Codex collaboration subagent",
+      "date": "2026-10-24",
+      "skill_loaded": true,
+      "declared_evidence": "- Existing Flutter source code is available.\n- No screenshots or runtime are available.\n- No specialist skills are guaranteed to be installed.",
+      "actually_accessible_evidence": [
+        "scenario text",
+        "declared skill file"
+      ],
+      "tools_available": [
+        "file tools; all tool access instruction-scoped to scenario, skill and transcript output"
+      ],
+      "response": "evals/runs/2026-10-24-confirmation/refactor-2/routing-001-micro-touch-target.md",
+      "response_sha256": "9099873a9b7cdec3449eedeee415fe56d789e3844686155f45cfda083f1a4764",
+      "scores": {
+        "mode": {
+          "verdict": "PASS",
+          "evidence": "Mode: REDESIGN"
+        },
+        "complexity": {
+          "verdict": "PASS",
+          "evidence": "Complexity: MICRO"
+        },
+        "evidence": {
+          "verdict": "PASS",
+          "evidence": "See captured response; no unsupported inspection, implementation or verification claim."
+        },
+        "scope_discipline": {
+          "verdict": "PASS",
+          "evidence": "See captured response; no unsupported inspection, implementation or verification claim."
+        },
+        "routing_ownership": {
+          "verdict": "PASS",
+          "evidence": "See captured response; no unsupported inspection, implementation or verification claim."
+        },
+        "audit_safety": {
+          "verdict": "PASS",
+          "evidence": "See captured response; no unsupported inspection, implementation or verification claim."
+        },
+        "verification_honesty": {
+          "verdict": "PASS",
+          "evidence": "See captured response; no unsupported inspection, implementation or verification claim."
+        },
+        "no_fake_delegation": {
+          "verdict": "PASS",
+          "evidence": "See captured response; no unsupported inspection, implementation or verification claim."
+        },
+        "architecture_neutrality": {
+          "verdict": "PASS",
+          "evidence": "See captured response; no unsupported inspection, implementation or verification claim."
+        },
+        "output_fit": {
+          "verdict": "PASS",
+          "evidence": "See captured response; no unsupported inspection, implementation or verification claim."
+        }
+      }
+    },
+    {
+      "phase": "refactor-2",
+      "scenario": "routing-002-existing-redesign-evidence.md",
+      "scenario_sha256": "abe20f5f23fb0591f405e622a4e105209cb2b0344fa6936df6257470ad61db8f",
+      "agent": "/root/final_redesign",
+      "model": "gpt-6-luna",
+      "runtime": "Codex collaboration subagent",
+      "date": "2026-10-24",
+      "skill_loaded": true,
+      "declared_evidence": "- Flutter project source is available.\n- A screenshot of the current home screen is available.\n- Runtime is unavailable.",
+      "actually_accessible_evidence": [
+        "scenario text",
+        "declared skill file"
+      ],
+      "tools_available": [
+        "file tools; all tool access instruction-scoped to scenario, skill and transcript output"
+      ],
+      "response": "evals/runs/2026-10-24-confirmation/refactor-2/routing-002-existing-redesign-evidence.md",
+      "response_sha256": "c8a108a3975debf9c7edbaf48015f5364e1a912275976491fe3365df95fbe038",
+      "scores": {
+        "mode": {
+          "verdict": "PASS",
+          "evidence": "Mode: REDESIGN"
+        },
+        "complexity": {
+          "verdict": "PASS",
+          "evidence": "Complexity: SCREEN"
+        },
+        "evidence": {
+          "verdict": "PASS",
+          "evidence": "See captured response; no unsupported inspection, implementation or verification claim."
+        },
+        "scope_discipline": {
+          "verdict": "PASS",
+          "evidence": "See captured response; no unsupported inspection, implementation or verification claim."
+        },
+        "routing_ownership": {
+          "verdict": "PASS",
+          "evidence": "See captured response; no unsupported inspection, implementation or verification claim."
+        },
+        "audit_safety": {
+          "verdict": "PASS",
+          "evidence": "See captured response; no unsupported inspection, implementation or verification claim."
+        },
+        "verification_honesty": {
+          "verdict": "PASS",
+          "evidence": "See captured response; no unsupported inspection, implementation or verification claim."
+        },
+        "no_fake_delegation": {
+          "verdict": "PASS",
+          "evidence": "See captured response; no unsupported inspection, implementation or verification claim."
+        },
+        "architecture_neutrality": {
+          "verdict": "PASS",
+          "evidence": "See captured response; no unsupported inspection, implementation or verification claim."
+        },
+        "output_fit": {
+          "verdict": "PASS",
+          "evidence": "See captured response; no unsupported inspection, implementation or verification claim."
+        }
+      }
+    },
+    {
+      "phase": "refactor-2",
+      "scenario": "routing-003-audit-read-only.md",
+      "scenario_sha256": "097c75faf52f62fd7cfe2544d8fb8b19880caed8565b17683d34d2b8bec302d1",
+      "agent": "/root/final_audit",
+      "model": "gpt-6-luna",
+      "runtime": "Codex collaboration subagent",
+      "date": "2026-10-24",
+      "skill_loaded": true,
+      "declared_evidence": "- Flutter source is available.\n- Runtime on one Android phone is available.\n- No iOS device is available.",
+      "actually_accessible_evidence": [
+        "scenario text",
+        "declared skill file"
+      ],
+      "tools_available": [
+        "file tools; all tool access instruction-scoped to scenario, skill and transcript output"
+      ],
+      "response": "evals/runs/2026-10-24-confirmation/refactor-2/routing-003-audit-read-only.md",
+      "response_sha256": "770505a680dc05e3f183600cbb6b3279ad014e465cc177d240ab393f740de894",
+      "scores": {
+        "mode": {
+          "verdict": "PASS",
+          "evidence": "Mode: AUDIT"
+        },
+        "complexity": {
+          "verdict": "PASS",
+          "evidence": "Complexity: PRODUCT"
+        },
+        "evidence": {
+          "verdict": "PASS",
+          "evidence": "See captured response; no unsupported inspection, implementation or verification claim."
+        },
+        "scope_discipline": {
+          "verdict": "PASS",
+          "evidence": "See captured response; no unsupported inspection, implementation or verification claim."
+        },
+        "routing_ownership": {
+          "verdict": "PASS",
+          "evidence": "See captured response; no unsupported inspection, implementation or verification claim."
+        },
+        "audit_safety": {
+          "verdict": "PASS",
+          "evidence": "See captured response; no unsupported inspection, implementation or verification claim."
+        },
+        "verification_honesty": {
+          "verdict": "PASS",
+          "evidence": "See captured response; no unsupported inspection, implementation or verification claim."
+        },
+        "no_fake_delegation": {
+          "verdict": "PASS",
+          "evidence": "See captured response; no unsupported inspection, implementation or verification claim."
+        },
+        "architecture_neutrality": {
+          "verdict": "PASS",
+          "evidence": "See captured response; no unsupported inspection, implementation or verification claim."
+        },
+        "output_fit": {
+          "verdict": "PASS",
+          "evidence": "See captured response; no unsupported inspection, implementation or verification claim."
+        }
+      }
+    },
+    {
+      "phase": "refactor-2",
+      "scenario": "routing-004-product-create.md",
+      "scenario_sha256": "e83f4e679bf6f096acbfc5bacc6c7b37c50b64974800eca310fc6381b3ebe6b2",
+      "agent": "/root/final_create",
+      "model": "gpt-6-luna",
+      "runtime": "Codex collaboration subagent",
+      "date": "2026-10-24",
+      "skill_loaded": true,
+      "declared_evidence": "- Product requirements only.\n- No existing code, screenshots, Figma, or runtime.",
+      "actually_accessible_evidence": [
+        "scenario text",
+        "declared skill file"
+      ],
+      "tools_available": [
+        "file tools; all tool access instruction-scoped to scenario, skill and transcript output"
+      ],
+      "response": "evals/runs/2026-10-24-confirmation/refactor-2/routing-004-product-create.md",
+      "response_sha256": "987753730f864afd706a24a730c501f55daf5be2847bb0a7692a3c638cb014fc",
+      "scores": {
+        "mode": {
+          "verdict": "PASS",
+          "evidence": "Mode: CREATE"
+        },
+        "complexity": {
+          "verdict": "PASS",
+          "evidence": "Complexity: PRODUCT"
+        },
+        "evidence": {
+          "verdict": "PASS",
+          "evidence": "See captured response; no unsupported inspection, implementation or verification claim."
+        },
+        "scope_discipline": {
+          "verdict": "PASS",
+          "evidence": "See captured response; no unsupported inspection, implementation or verification claim."
+        },
+        "routing_ownership": {
+          "verdict": "PASS",
+          "evidence": "See captured response; no unsupported inspection, implementation or verification claim."
+        },
+        "audit_safety": {
+          "verdict": "PASS",
+          "evidence": "See captured response; no unsupported inspection, implementation or verification claim."
+        },
+        "verification_honesty": {
+          "verdict": "PASS",
+          "evidence": "See captured response; no unsupported inspection, implementation or verification claim."
+        },
+        "no_fake_delegation": {
+          "verdict": "PASS",
+          "evidence": "See captured response; no unsupported inspection, implementation or verification claim."
+        },
+        "architecture_neutrality": {
+          "verdict": "PASS",
+          "evidence": "See captured response; no unsupported inspection, implementation or verification claim."
+        },
+        "output_fit": {
+          "verdict": "PASS",
+          "evidence": "See captured response; no unsupported inspection, implementation or verification claim."
+        }
+      }
+    },
+    {
+      "phase": "refactor-2",
+      "scenario": "routing-005-composite-review-fix.md",
+      "scenario_sha256": "ccaa855a5c1cc55a8b129ea5319fa38237c49c1725c93e28d7fdb98009bb3581",
+      "agent": "/root/final_composite",
+      "model": "gpt-6-luna",
+      "runtime": "Codex collaboration subagent",
+      "date": "2026-10-24",
+      "skill_loaded": true,
+      "declared_evidence": "- Flutter source is available.\n- Runtime is available on Android.\n- Screenshots are available for the three checkout screens.",
+      "actually_accessible_evidence": [
+        "scenario text",
+        "declared skill file"
+      ],
+      "tools_available": [
+        "file tools; all tool access instruction-scoped to scenario, skill and transcript output"
+      ],
+      "response": "evals/runs/2026-10-24-confirmation/refactor-2/routing-005-composite-review-fix.md",
+      "response_sha256": "b28c3d2ee395101aa85ca6459f3ff44241472a8e1864cbdacf941a8412681e9d",
+      "scores": {
+        "mode": {
+          "verdict": "PASS",
+          "evidence": "Mode: AUDIT → REDESIGN → VERIFY"
+        },
+        "complexity": {
+          "verdict": "PASS",
+          "evidence": "Complexity: FLOW"
+        },
+        "evidence": {
+          "verdict": "PASS",
+          "evidence": "See captured response; no unsupported inspection, implementation or verification claim."
+        },
+        "scope_discipline": {
+          "verdict": "PASS",
+          "evidence": "See captured response; no unsupported inspection, implementation or verification claim."
+        },
+        "routing_ownership": {
+          "verdict": "PASS",
+          "evidence": "See captured response; no unsupported inspection, implementation or verification claim."
+        },
+        "audit_safety": {
+          "verdict": "PASS",
+          "evidence": "See captured response; no unsupported inspection, implementation or verification claim."
+        },
+        "verification_honesty": {
+          "verdict": "PASS",
+          "evidence": "All implementation/runtime/visual evidence is marked inaccessible and NOT VERIFIED. iOS is not individually named; no iOS success is implied. Platform-by-platform reporting remains a follow-up probe."
+        },
+        "no_fake_delegation": {
+          "verdict": "PASS",
+          "evidence": "See captured response; no unsupported inspection, implementation or verification claim."
+        },
+        "architecture_neutrality": {
+          "verdict": "PASS",
+          "evidence": "See captured response; no unsupported inspection, implementation or verification claim."
+        },
+        "output_fit": {
+          "verdict": "PASS",
+          "evidence": "See captured response; no unsupported inspection, implementation or verification claim."
+        }
+      }
+    }
+  ]
+}

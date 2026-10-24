@@ -1,0 +1,23 @@
+{
+  "scenarios": {
+    "pressure-001-skip-inspection-copy-reference.md": {
+      "sha256": "11e640624f91bed5ae2c17271239d2ec0f9d9a6f258b2b3dcad01b640dfe106b"
+    },
+    "routing-001-micro-touch-target.md": {
+      "sha256": "ad1390f0d5c7da35e8fb8996b85bb0c65964391171e90cd0d88c9b7b22b9954f"
+    },
+    "routing-002-existing-redesign-evidence.md": {
+      "sha256": "abe20f5f23fb0591f405e622a4e105209cb2b0344fa6936df6257470ad61db8f"
+    },
+    "routing-003-audit-read-only.md": {
+      "sha256": "097c75faf52f62fd7cfe2544d8fb8b19880caed8565b17683d34d2b8bec302d1"
+    },
+    "routing-004-product-create.md": {
+      "sha256": "e83f4e679bf6f096acbfc5bacc6c7b37c50b64974800eca310fc6381b3ebe6b2"
+    },
+    "routing-005-composite-review-fix.md": {
+      "sha256": "ccaa855a5c1cc55a8b129ea5319fa38237c49c1725c93e28d7fdb98009bb3581"
+    }
+  },
+  "schema_version": 1
+}

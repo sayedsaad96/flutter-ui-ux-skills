@@ -6,7 +6,13 @@ on:
 
 jobs:
   validate:
-    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    defaults:
+      run:
+        shell: bash
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -20,6 +26,8 @@ jobs:
         run: python scripts/validate_evals.py .
       - name: Validate canonical scenario fingerprints
         run: python scripts/eval_manifest.py .
+      - name: Validate complete-suite release evidence
+        run: python scripts/validate_release.py .
       - name: Reject placeholder markers in public skill files
         run: |
           python - <<'PY'

@@ -1,64 +1,240 @@
 # Flutter UI/UX Skills
 
-AI can write Flutter UI quickly. The harder problem is making that UI intentional, product-specific, adaptive, accessible, maintainable, fast, state-complete, animated with purpose, and visually convincing.
+Eleven Agent Skills that help an AI coding assistant create, redesign, audit and
+refine Flutter interfaces. Install them in your Flutter project, then ask your
+assistant to use a skill in chat. The package contains Markdown instructions;
+you do not add it as a Dart dependency in `pubspec.yaml`.
 
-**Flutter UI/UX Skills** is a behaviorally tested design-engineering skill system for AI coding agents. Its goal is to make Flutter interfaces feel **designed, not generated**.
+[الدليل بالعربية](README.ar.md) · [Skills](#choose-a-skill) · [Troubleshooting](#troubleshooting)
 
-## Current Release
+## Current version
 
-`main` currently contains the **v0.1 release candidate**, not a tagged release. Only one skill exists: `flutter-ui-ux`, the Layer-1 orchestrator. The other ten planned skills (three workflow skills, seven specialists) do not exist yet — that is by design, not an oversight. See Roadmap.
+**0.2.0rc1 — release candidate.** The full suite is on the
+[`fix/flutter-ui-ux-activation-reliability` branch](https://github.com/sayedsaad96/flutter-ui-ux-skills/tree/fix/flutter-ui-ux-activation-reliability).
+The commands below select that branch explicitly; the default branch may still
+contain the earlier orchestrator-only candidate. No stable release is claimed.
 
-**`v0.1.0` has not been tagged and must not be considered released until a clean behavioral eval rerun passes.** The repository's earlier RED/GREEN/REFACTOR eval records were captured while the target-agent scenario prompts still contained evaluator-only "Required behavior" sections, which contaminates them as evidence — the agent being tested could see the answer key. Those records are preserved for transparency in `evals/baselines/` and `evals/results/`, each marked with a historical, non-gating notice, but they cannot be cited as proof the orchestrator works. See `evals/STATUS.md` for the exact release gate and what a clean rerun requires.
+## 1. Prepare your tools
 
-## Why This Exists
+You need:
 
-AI-generated Flutter UI tends to converge on the same generic patterns regardless of product, audience, or brand. This project is a set of Agent Skills that push AI coding agents toward evidence-first, product-specific, honestly-verified UI/UX work instead.
+- **Node.js 22.20.0 or newer**, including npm/npx. The instructions pin the tested
+  [skills CLI](https://github.com/vercel-labs/skills) version, `1.7.4`.
+- **Git**, available in your terminal, for repository installation/fallback.
+- An AI coding assistant that supports Agent Skills. The walkthrough uses Codex;
+  other CLI agent identifiers are listed below.
+- Your Flutter project and its Flutter SDK for implementation and app checks.
 
-## Core Modes
-
-- **CREATE** — new screens, flows, apps, or component families.
-- **REDESIGN** — improving an existing UI, grounded in inspection of what already exists.
-- **AUDIT** — read-only evaluation with prioritized findings; does not change code unless asked.
-- Composite sequences: `AUDIT → REDESIGN → VERIFY`, `CREATE → review/polish → VERIFY`.
-
-## Architecture
-
-The full design is a layered skill system: one orchestrator (`flutter-ui-ux`), three workflow skills, and seven specialists. This release candidate implements only the orchestrator. See `docs/superpowers/specs/2026-09-14-flutter-ui-ux-skill-system-design.md` for the complete approved design.
-
-## Prompt / Expectation Isolation
-
-`evals/scenarios/` contains only what a target agent is allowed to see: scenario title, user request, and available evidence. `evals/expectations/` contains the evaluator-only required behavior for each matching scenario and must never be shown to a target agent before its response is captured. This separation is enforced by `scripts/validate_evals.py` and its tests, and is required reading before running any eval — see `evals/expectations/README.md` and `evals/STATUS.md`.
-
-## Install
+Check the tools in a terminal:
 
 ```bash
-npx skills add sayedsaad96/flutter-ui-ux-skills --skill flutter-ui-ux
+node --version
+npm --version
+git --version
+flutter doctor
 ```
 
-This installs from `main`, i.e. the pre-release candidate — not a tagged version, since `v0.1.0` has not been tagged yet.
+Install missing tools from [Node.js](https://nodejs.org/en/download),
+[Git](https://git-scm.com/downloads) or the [Flutter setup guide](https://docs.flutter.dev/get-started/install).
+Resolve Flutter setup issues for the platform you intend to test.
 
-## Behavioral Evals
+## 2. Install inside your Flutter project
 
-Every skill in this system is meant to be authored using RED → GREEN → REFACTOR: baseline agent behavior is captured before the skill exists, the skill is written from the observed failures, then pressure-tested. The current `evals/baselines/` and `evals/results/` records predate prompt/expectation isolation and are kept only as historical, non-gating evidence. A clean rerun using the isolated `evals/scenarios/` and `evals/expectations/` has not yet been performed — see `evals/STATUS.md` for the exact release gate.
+Open a terminal in the **root of the app you want to work on**, where
+`pubspec.yaml` is located. Run:
 
-## Designed, Not Generated
+```bash
+npx skills@1.7.4 add "sayedsaad96/flutter-ui-ux-skills#fix/flutter-ui-ux-activation-reliability" --skill "*" --agent codex --copy --yes
+```
 
-The system's differentiation is a positive quality model, not a list of banned styles: product specificity, visual intent, experience coherence, system coherence, platform/context fit, and craft. See the design spec for the full quality model, design-smell tests, and hard-failure criteria.
+The first run may ask npm to download the CLI; accept that prompt. This command:
 
-## Roadmap
+- Selects the branch containing all eleven skills.
+- Installs only this suite, in the current project.
+- Targets Codex and copies the files, avoiding symlink setup.
+- Keeps the installation project-local because no global flag is used.
 
-**Phase 1 — Foundation:** `flutter-ui-ux` (this release candidate), `polishing-flutter-experiences`, `verifying-flutter-ui`.
+For Codex, expect eleven folders under `.agents/skills/`, each containing a
+`SKILL.md` file. The CLI may also create/update `skills-lock.json`; keep that file
+with the project if you want to record the installed sources.
 
-**Phase 2 — Workflows:** `creating-flutter-ui`, `redesigning-flutter-ui`, `auditing-flutter-ui`.
+To use another assistant, replace `--agent codex` with its CLI identifier:
 
-**Phase 3 — Specialist Depth:** `designing-flutter-systems`, `building-responsive-adaptive-flutter`, `engineering-flutter-ui`, `designing-inclusive-flutter`, `crafting-flutter-motion`.
+| Assistant | Identifier |
+|---|---|
+| Codex | `codex` |
+| Claude Code | `claude-code` |
+| Cursor | `cursor` |
+| Antigravity | `antigravity` |
 
-Each skill is completed and verified (RED → GREEN → REFACTOR, with clean prompt/expectation isolation) before work begins on the next. None of the Phase 1–3 skills beyond `flutter-ui-ux` currently exist in this repository.
+See the CLI's [supported agents](https://github.com/vercel-labs/skills/blob/main/docs/agents.md)
+for current paths and identifiers. Behavioral checks for this candidate were run
+in Codex. Other runtimes require their own validation; explicit skill selection
+is especially useful where automatic discovery competes with other skills.
 
-## Contributing
+To install only the orchestrator instead of the full suite, use:
 
-See `CONTRIBUTING.md`.
+```bash
+npx skills@1.7.4 add "sayedsaad96/flutter-ui-ux-skills#fix/flutter-ui-ux-activation-reliability" --skill flutter-ui-ux --agent codex --copy --yes
+```
 
-## License
+The orchestrator works alone and falls back to direct reasoning when a specialist
+is unavailable. Installing all eleven provides the full set of guidance.
 
-MIT — see `LICENSE`.
+## 3. Confirm the installation
+
+From the same Flutter project, run:
+
+```bash
+npx skills@1.7.4 list --agent codex
+```
+
+For a full installation, check that the eleven names in the table below appear.
+Then open your assistant on that Flutter project and start a new chat/session so
+it can discover the newly installed skills.
+
+## 4. Use a skill in the assistant's chat
+
+Paste these prompts **in the AI chat, not in the terminal**. In Codex, `$` selects
+a named skill. In another assistant, use its skill picker or explicitly ask it to
+read the installed skill's `SKILL.md` before the task.
+
+Start with the orchestrator for most Flutter UI work:
+
+```text
+$flutter-ui-ux Review lib/features/checkout and then fix the important UI issues.
+Preserve the existing state management and navigation. Inspect the current code
+before changing it. Report what you changed and what you actually verified.
+```
+
+Replace the example path with a real file or feature in your app. Give the
+assistant access to that project. Attach screenshots or make a runtime available
+when you want visual or interaction verification.
+
+More examples:
+
+```text
+$creating-flutter-ui Create an expense-entry screen for this app. Use the current
+theme, support Arabic and English, and include loading, validation and error states.
+```
+
+```text
+$auditing-flutter-ui Audit the onboarding flow. Give prioritized findings with
+evidence and recommendations only; do not change code.
+```
+
+```text
+$designing-inclusive-flutter Fix large-text overflow and mixed Arabic/English
+content in the invoice row. Preserve the stored data and existing callbacks.
+```
+
+```text
+$crafting-flutter-motion Improve bookmark feedback in the reader. Preserve
+reading position and audio state, and respect reduced-motion settings.
+```
+
+```text
+$verifying-flutter-ui Check the changed screens before release. Separate static,
+runtime, visual, accessibility and platform checks, and identify unverified coverage.
+```
+
+The orchestrator classifies the task, states the evidence it can access, selects
+only the needed capabilities and reports verification honestly. A missing
+screenshot, source file or runtime should produce a stated limitation, not a
+claim that it was inspected. Audit-only requests stay read-only.
+
+## Choose a skill
+
+| Skill | Use it for |
+|---|---|
+| [flutter-ui-ux](skills/flutter-ui-ux/SKILL.md) | Routing and coordinating Flutter UI work |
+| [creating-flutter-ui](skills/creating-flutter-ui/SKILL.md) | New screens, components and flows |
+| [redesigning-flutter-ui](skills/redesigning-flutter-ui/SKILL.md) | Improving an existing interface from evidence |
+| [auditing-flutter-ui](skills/auditing-flutter-ui/SKILL.md) | Read-only findings and priorities |
+| [designing-flutter-systems](skills/designing-flutter-systems/SKILL.md) | Visual direction, themes, tokens and component language |
+| [building-responsive-adaptive-flutter](skills/building-responsive-adaptive-flutter/SKILL.md) | Local layout constraints, resizing, navigation and input adaptation |
+| [engineering-flutter-ui](skills/engineering-flutter-ui/SKILL.md) | Widget composition, state rendering and UI performance |
+| [designing-inclusive-flutter](skills/designing-inclusive-flutter/SKILL.md) | Accessibility, localization, RTL, large text and focus |
+| [crafting-flutter-motion](skills/crafting-flutter-motion/SKILL.md) | Purposeful transitions, lifecycle and reduced motion |
+| [polishing-flutter-experiences](skills/polishing-flutter-experiences/SKILL.md) | Hierarchy, alignment, spacing, density and perceived craft |
+| [verifying-flutter-ui](skills/verifying-flutter-ui/SKILL.md) | Quality gates, evidence and scoped readiness verdicts |
+
+Skills are self-contained. They preserve the project's existing architecture and
+derive visual decisions from its product rather than imposing one style.
+
+## Update or remove
+
+To refresh the full suite from this candidate branch, rerun the full installation
+command in the same project. Review any local edits to installed copies first;
+reinstallation can replace them.
+
+To remove only the orchestrator:
+
+```bash
+npx skills@1.7.4 remove flutter-ui-ux --agent codex --yes
+```
+
+To choose several installed skills for removal, run `npx skills@1.7.4 remove`
+interactively and select only this suite's names. Avoid `--all` if the project
+contains skills from other packages.
+
+## Local/offline source option
+
+Clone the candidate if you prefer installing from a local checkout:
+
+```bash
+git clone --branch fix/flutter-ui-ux-activation-reliability --single-branch https://github.com/sayedsaad96/flutter-ui-ux-skills.git
+```
+
+Return to the destination Flutter project's root, then run the following with
+the actual absolute path to the checkout's `skills` directory:
+
+```bash
+npx skills@1.7.4 add "/absolute/path/to/flutter-ui-ux-skills/skills" --skill "*" --agent codex --copy --yes
+```
+
+On Windows, an absolute path can look like `C:/Projects/flutter-ui-ux-skills/skills`.
+Keep it quoted if it contains spaces. Installing from a local source still needs
+the CLI available or cached; it does not by itself provide offline dependencies.
+
+## Troubleshooting
+
+| Problem | What to check |
+|---|---|
+| `npx` is not recognized | Install a supported Node.js version and reopen the terminal. |
+| Fewer than eleven skills | Use the full command with the quoted `#fix/...` branch and `--skill "*"`; the default branch may be older. |
+| Skills are missing in the assistant | Run the list command in the intended Flutter project, confirm the target agent, and start a new chat/session. |
+| The assistant skips the guidance | Invoke `$flutter-ui-ux` or the specific installed skill explicitly. |
+| GitHub/network installation fails | Check Git/network access or use the local checkout option. |
+| Link permissions fail on Windows | Keep `--copy` in the command. |
+| An audit starts modifying files | State that you want findings only and use `auditing-flutter-ui`. |
+| Visual/device verification is unavailable | Provide the app, screenshots or runtime; require unverified checks to be named. |
+
+## Validation and limits
+
+The candidate passed 24 Python regression tests, six explicit orchestrator
+scenarios and ten workflow/specialist application probes. Four targeted Codex
+discovery probes and an isolated eleven-skill installation were also checked.
+Some pre-authoring controls already passed; no improvement is claimed for those
+cases. See [release status](evals/STATUS.md) and the
+[readiness report](docs/RELEASE_READINESS.md) for scope and evidence.
+
+These guidance probes do not certify a real Flutter app on devices, screen
+readers or performance traces. Verify the app you change. No universal automatic
+discovery or cross-agent reliability is claimed.
+
+Maintainers can run these checks with Python 3.10+ and its standard library:
+
+```bash
+python -m unittest discover -s tests -p "test_*.py" -v
+python scripts/validate_skills.py .
+python scripts/validate_evals.py .
+python scripts/eval_manifest.py .
+python scripts/validate_release.py .
+```
+
+Normal skill users do not need Python. Read [CONTRIBUTING.md](CONTRIBUTING.md), the
+[approved design](docs/superpowers/specs/2026-09-14-flutter-ui-ux-skill-system-design.md)
+and [evaluation protocol](evals/README.md) before changing the suite.
+
+MIT — see [LICENSE](LICENSE).

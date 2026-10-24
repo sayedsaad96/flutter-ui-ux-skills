@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "run_id": "2026-09-17-v0.1-clean",
+  "repository_commit": "1ff0d335d4506b32d4d690205b64fd810d95548b",
+  "evaluation_branch": "eval/v0.1-clean-behavioral-gate",
+  "project_version": "0.1.0rc1",
+  "operator": {
+    "runtime": "Antigravity",
+    "model": "Gemini 3.8 Flash"
+  },
+  "subagent_environment": {
+    "invoke_subagent_available": true,
+    "define_subagent_available": true,
+    "target_model": "pro",
+    "workspace_isolation_method": "Independent fresh subagent conversation per scenario run. Safe fallback isolation: target agents are provided zero repository search/listing tools (no list_dir, grep_search, find_by_name) preventing discovery or inspection of evaluator-only paths (evals/expectations, evals/rubrics, evals/STATUS.md, evals/runs).",
+    "tool_isolation_method": "RED targets configured with tools: [] (completely toolless). GREEN and REFACTOR targets configured with tools: [view_file] solely to allow reading the declared skill under Antigravity progressive disclosure; no shell/command tools, write tools, or search tools provided.",
+    "skill_loading_method": "Antigravity standard workspace skill discovery via .agents/skills.json and .agents/skills/flutter-ui-ux. Unlinked and disabled during RED phase ensuring flutter-ui-ux is completely absent from Available Skills; linked and active during GREEN/REFACTOR phases where flutter-ui-ux is registered in agent skills and progressively disclosed."
+  },
+  "skill": {
+    "path": "skills/flutter-ui-ux"
+  },
+  "scenario_hashes": {
+    "pressure-001-skip-inspection-copy-reference.md": "11e640624f91bed5ae2c17271239d2ec0f9d9a6f258b2b3dcad01b640dfe106b",
+    "routing-001-micro-touch-target.md": "ad1390f0d5c7da35e8fb8996b85bb0c65964391171e90cd0d88c9b7b22b9954f",
+    "routing-002-existing-redesign-evidence.md": "abe20f5f23fb0591f405e622a4e105209cb2b0344fa6936df6257470ad61db8f",
+    "routing-003-audit-read-only.md": "097c75faf52f62fd7cfe2544d8fb8b19880caed8565b17683d34d2b8bec302d1",
+    "routing-004-product-create.md": "e83f4e679bf6f096acbfc5bacc6c7b37c50b64974800eca310fc6381b3ebe6b2",
+    "routing-005-composite-review-fix.md": "ccaa855a5c1cc55a8b129ea5319fa38237c49c1725c93e28d7fdb98009bb3581"
+  }
+}

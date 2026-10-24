@@ -11,6 +11,36 @@ class ValidateSkillsTests(unittest.TestCase):
         skill_dir.mkdir(parents=True, exist_ok=True)
         (skill_dir / "SKILL.md").write_text(body, encoding="utf-8")
 
+    def test_empty_or_incomplete_skill_tree_fails(self):
+        for folder in ("skills", "skills/orphan"):
+            with self.subTest(folder=folder), tempfile.TemporaryDirectory() as tmp:
+                root = Path(tmp)
+                (root / folder).mkdir(parents=True)
+                self.assertTrue(validate_repository(root))
+
+    def test_invalid_public_names_fail(self):
+        for name in ("Uppercase", "-leading", "trailing-", "two--hyphens", "x" * 65):
+            with self.subTest(name=name), tempfile.TemporaryDirectory() as tmp:
+                root = Path(tmp)
+                self.write_skill(root, name, f"---\nname: {name}\ndescription: Use when testing.\n---\n# Skill\n")
+                self.assertTrue(validate_repository(root))
+
+    def test_duplicate_frontmatter_key_fails(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            self.write_skill(root, "example", "---\nname: wrong\nname: example\ndescription: Use when testing.\n---\n# Skill\n")
+            self.assertTrue(validate_repository(root))
+
+    def test_missing_local_reference_fails_then_resolves(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            self.write_skill(root, "example", "---\nname: example\ndescription: Use when testing.\n---\n# Skill\nRead [guide](references/guide.md).\n")
+            self.assertTrue(validate_repository(root))
+            reference = root / "skills/example/references/guide.md"
+            reference.parent.mkdir()
+            reference.write_text("# Guide\n", encoding="utf-8")
+            self.assertEqual(validate_repository(root), [])
+
     def test_valid_skill_returns_no_errors(self):
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)

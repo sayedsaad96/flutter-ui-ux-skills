@@ -1,0 +1,7 @@
+# Preserve the bytes used by the canonical Windows-origin scenario fingerprints.
+evals/scenarios/*.md text eol=crlf
+evals/expectations/*.md text eol=crlf
+evals/suite/scenarios/*.md -text
+evals/suite/expectations/*.md -text
+# Captured responses and their hashes are immutable evidence across platforms.
+evals/runs/** -text

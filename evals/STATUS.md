@@ -1,37 +1,45 @@
-# Eval Release Status
+# Eval release status — 2026-10-24
 
-## Release gate: CLEAN RERUN REQUIRED
+## Current target: complete eleven-skill 0.2.0rc1 candidate
 
-The historical RED/GREEN/REFACTOR records in `evals/baselines/` and `evals/results/` were captured before evaluator expectations were separated from target-agent scenario prompts. The original scenario files exposed `## Required behavior` to the target agent, so those responses are contaminated as behavioral evidence. They remain preserved with historical, non-gating notices and must not be used to claim release readiness.
+- All eleven planned skills are implemented.
+- Explicit-invocation orchestrator confirmation: **6/6 PASS** after the routing update.
+- Specialist/workflow application probes: **10/10 PASS**; one case per skill.
+- Targeted Codex discovery: **3 positive and 1 negative probe PASS**.
+- This is local candidate readiness, not a published/tagged release or proof of
+  app/device validation. See `docs/RELEASE_READINESS.md` for local test/install results.
 
-## Canonical sources
+## Evidence
 
-- Target-agent prompts: `evals/scenarios/` only.
-- Evaluator expectations: matching files in `evals/expectations/` only.
-- Scoring: `evals/rubrics/flutter-ui-ux-routing-rubric.md`.
-- New immutable run evidence: `evals/runs/<run-id>/`.
-- Scenario drift detection: `scripts/eval_manifest.py`.
+- `evals/runs/2026-10-24-confirmation/`: two explicit-use confirmation phases;
+  initial PRODUCT CREATE routing gap and final passing six-case record.
+- `evals/runs/2026-10-24-suite/`: ten pre-authoring controls and ten skill-loaded
+  application captures with per-criterion evaluator scores.
+- `evals/runs/2026-10-24-discovery/`: three UI requests and one unrelated Dart task,
+  with target-reported action logs. These are limited, non-gating discovery probes.
+- `release-readiness.json`: current source and application artifact fingerprints.
 
-## Clean RED
+No target was given evaluator expectations. Targets were fresh Luna contexts
+with the normal inherited system/catalog, and instructed to restrict file reads.
+Isolation was not enforced by a per-agent tool sandbox. The application runs
+test guidance on supplied excerpts, requirements and logs, not compiled Flutter
+patches. No universal model/runtime reliability or improvement rate is inferred.
+Some controls already passed; those remain PASS rather than invented failures.
 
-Fresh context; skill not loaded; show only the matching scenario; record model/runtime/date, exact prompt, declared evidence, actually accessible evidence, tools available, and the exact raw response. Score only after capture.
+## Historical outcomes
 
-## Clean GREEN
+The September Antigravity run remains **FAIL (3/6 final PASS)**. Its activation
+failures are not erased by new Codex results. Earlier contaminated baselines and
+results remain non-gating history. The 0.1.0 release was never tagged here.
 
-Fresh context; same unchanged scenario prompt and matching scenario SHA-256; load `flutter-ui-ux` normally; record the same metadata and exact raw response. Score only after capture.
+The new canonical confirmation explicitly invokes the skill. Separate Codex
+probes observe automatic loading in the previously troublesome UI task shapes,
+but do not establish Antigravity discovery. Explicit invocation remains the
+documented fallback.
 
-## REFACTOR
+## Gate interpretation
 
-Change skill wording only for real observed failures. Use fresh contexts, the same unchanged scenario prompts and hashes, capture exact responses, and rerun all six scenarios after each skill change.
-
-## Scoring rule
-
-Use `PASS`, `FAIL`, `N/A`, or `NOT OBSERVABLE`. `FAIL` blocks. `NOT OBSERVABLE` blocks when the criterion should have been observable; it is not a pass-by-default. `N/A` requires a scenario-specific justification. All applicable criteria must be `PASS` in all six REFACTOR scenarios before release.
-
-## Evidence-access rule
-
-Scenario text declaring evidence “available” does not prove the target runtime could access it. Record `declared_evidence`, `actually_accessible_evidence`, and `tools_available` separately. Never fabricate inspection or validation from inaccessible code, screenshots, runtime, devices, or designs.
-
-## Current status
-
-`v0.1.0` is not released and must not be tagged by this task. The infrastructure PR can be merge-ready after static checks pass, but the behavioral release gate remains **CLEAN RERUN REQUIRED** until a genuinely independent clean RED → GREEN → REFACTOR cycle exists in `evals/runs/`.
+All applicable criteria must PASS for the scoped application gate. NOT OBSERVABLE
+is not a pass. A semantic score requires review of the response and evidence;
+the release validator only detects missing records, nonpassing scores and drift.
+Absence of actual app evidence remains a limitation, not a fabricated success.

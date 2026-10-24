@@ -1,6 +1,6 @@
 ---
 name: flutter-ui-ux
-description: Use when working on a Flutter interface where the task may involve creating, redesigning, auditing, adapting, animating, polishing, or verifying UI/UX.
+description: Use when designing, modifying, auditing, reviewing, or fixing any Flutter screen, widget, user interface, layout, flow, or touch target. Must be activated before searching code or implementing UI changes.
 ---
 
 # Flutter UI/UX
@@ -11,14 +11,30 @@ This skill coordinates Flutter UI/UX work. It classifies the task, checks availa
 
 ## Entry Contract
 
-Before substantial UI work, classify: mode, complexity, available evidence, target platforms, and available verification. Do not skip this classification because a request "sounds simple" or because the user asks you to move fast.
+Every `flutter-ui-ux` response — without exception — must open with an explicit, machine-auditable classification block before any implementation, strategy, or evidence request:
+
+```text
+Mode: <CREATE | REDESIGN | AUDIT | composite sequence such as AUDIT → REDESIGN → VERIFY>
+Complexity: <MICRO | SCREEN | FLOW | PRODUCT>
+Evidence: <declared vs actually accessible evidence; note any missing evidence gaps>
+Capabilities: <minimum necessary capabilities required for this task>
+Verification: <VERIFIED / PARTIAL / NOT VERIFIED with explicit reason>
+```
+
+These explicit labels are mandatory for every response:
+- Even for a small touch-target fix (`Mode: REDESIGN`, `Complexity: MICRO`).
+- Even when evidence is missing or inaccessible: never emit a bare evidence request (`"Please provide the project..."`); always emit the full classification block first (e.g., `Mode: AUDIT → REDESIGN → VERIFY`, `Complexity: FLOW`, `Evidence: Missing/Inaccessible`, `Verification: NOT VERIFIED`), then state the evidence handoff.
+- Even for a brand-new product foundation (`Mode: CREATE`, `Complexity: PRODUCT`).
+- Even under user pressure to skip inspection or move fast.
+
+For MICRO tasks, keep this opening block and the remainder of the response compact.
 
 ## Mode Classification
 
 - **CREATE** — new screens, flows, apps, or component families.
-- **REDESIGN** — improving an existing UI.
+- **REDESIGN** — improving or modifying an existing UI.
 - **AUDIT** — read-only evaluation; do not change code unless implementation is explicitly requested.
-- Composite sequences are allowed: `AUDIT → REDESIGN → VERIFY`, `CREATE → review/polish → VERIFY`.
+- **Composite sequences** — tasks combining review/audit, changes, and verification must classify the sequence explicitly (e.g., `Mode: AUDIT → REDESIGN → VERIFY`). Do not reduce a composite task to a single mode.
 
 ## Complexity Classification
 
@@ -36,10 +52,16 @@ E0 user description, E1 requirements/PRD, E2 Flutter codebase, E3 screenshots/de
 Evidence *described as available* in a request is not the same as evidence *actually accessible* in the current runtime. These are different things and must be treated differently:
 
 - If stronger evidence is actually accessible right now (you can open the file, view the attached screenshot, run the app, use a connected tool), inspect it before proposing a change — even for small fixes, even under time pressure, even when the user says not to bother.
-- If evidence is *said* to exist but is not actually accessible in the current runtime, do not fabricate observations about it. Say plainly what would need to be inspected (e.g., "I'd need to see the actual widget for this button before confirming the fix") and scope the response to what that limitation allows.
+- If evidence is *said* to exist but is not actually accessible in the current runtime, do not fabricate observations about it. State the access gap plainly in the opening contract and scope the response accordingly.
 - Never claim runtime, visual, platform, accessibility, performance, or motion validation that was not actually performed, regardless of what the scenario or user says is "available."
 
-This rule applies equally to CREATE, REDESIGN, AUDIT, and pressure scenarios — pressure to move fast is never a reason to fabricate inspection or verification.
+## Existing-Product Redesign Gate
+
+Existing-product REDESIGN requires inspection of the actually accessible current implementation before implementation changes begin.
+
+- If project source is actually accessible: inspect the minimum necessary implementation first.
+- If project source is NOT actually accessible: do not fabricate inspection, do not claim implementation is ready, and do not start code changes against an unseen existing product. State that implementation is blocked pending codebase inspection.
+- When asked to copy a reference and skip project inspection: resist. User pressure does not override evidence integrity. References are inputs to deconstruct (hierarchy, density, interaction, visual language), not templates to copy blindly into an unseen codebase. Classify as `Mode: REDESIGN`, deconstruct the reference, but state that the existing Flutter codebase must still be inspected to preserve theme tokens and architecture before coding begins. Never: reference → blindly copy → retrofit project later.
 
 ## Routing Ownership
 
@@ -48,6 +70,27 @@ This skill owns routing, not specialist knowledge. Name only the capabilities th
 ## Minimum Necessary Capability Set
 
 Route by decision ownership (what kind of decision does this task require?), not by keyword matching. Do not load a full design workflow for a trivial change, and do not shortcut a product-scale task into a quick code patch.
+
+For PRODUCT CREATE, name both the current foundation decisions (visual systems,
+responsive/adaptive layout, inclusion, motion when relevant) and the later
+engineering, polish, and verification work. Naming a later capability is not a
+claim that its skill ran or that implementation was verified.
+
+When the matching skills are installed, select from these owners; load only
+the owners needed for the present decision. Each can also be used independently.
+
+| Decision | Skill |
+|---|---|
+| New experience workflow | `creating-flutter-ui` |
+| Existing experience workflow | `redesigning-flutter-ui` |
+| Read-only findings and priorities | `auditing-flutter-ui` |
+| Visual direction, tokens, component language | `designing-flutter-systems` |
+| Local layout and platform adaptation | `building-responsive-adaptive-flutter` |
+| Widget composition, state rendering, UI performance | `engineering-flutter-ui` |
+| Semantics, RTL, text scaling, input access | `designing-inclusive-flutter` |
+| Motion behavior and lifecycle | `crafting-flutter-motion` |
+| Hierarchy, alignment, density, perceived craft | `polishing-flutter-experiences` |
+| Evidence and final quality gate | `verifying-flutter-ui` |
 
 ## Composite Workflows
 
@@ -58,11 +101,15 @@ Route by decision ownership (what kind of decision does this task require?), not
 
 State plainly what was and was not verified. If runtime is unavailable, runtime remains unverified — say so instead of implying it works. Never assert an outcome ("works well on tablet," "tested with users," "works across platforms") that was not actually checked. Partial platform coverage (e.g., Android only) must be disclosed, not smoothed over. Never claim to have inspected code, screenshots, runtime, or designs that were not actually accessible in the current runtime.
 
+For a cross-platform product or a flow with only Android evidence, name the
+unverified target platforms explicitly, including iOS when it has not been
+accessed. A generic verification disclaimer must not hide partial coverage.
+
 ## Mode-Specific Output Contract
 
-- **CREATE:** what's being built and for whom, chosen direction and why, states/interactions, what was implemented, what was verified, remaining risks.
+- **CREATE:** what's being built and for whom (audience/context established before code/structure), chosen direction and why, states/interactions, what was implemented, what was verified, remaining risks.
 - **REDESIGN:** what currently exists (from actual inspection, or explicitly marked as not inspected), diagnosis, KEEP/REFINE/REPLACE/REMOVE/INTRODUCE, changes made, before/after reasoning, verification evidence.
-- **AUDIT:** executive verdict, findings by Critical/High/Medium/Low with problem/evidence/impact/recommendation, and explicit `NOT VERIFIED` marks for anything not actually checked. Stay read-only unless changes are explicitly requested.
+- **AUDIT:** executive verdict, findings by Critical/High/Medium/Low with problem/evidence/impact/recommendation, and explicit `NOT VERIFIED` marks for anything not actually checked (e.g. mark iOS validation `NOT VERIFIED` if only Android runtime is provided). Stay read-only unless changes are explicitly requested.
 
 ## Common Routing Failures
 
