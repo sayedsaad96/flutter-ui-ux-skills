@@ -1,0 +1,5 @@
+Move the search trigger out of `build` and render the existing `SearchCubit` state directly. Calling `repository.search(query)` during build creates a new future on every rebuild, which can repeat network requests and restart the `FutureBuilder`. The Cubit already owns loading, empty, error, cancellation, and request ordering, so a new state-management package would duplicate that work.
+
+Have the screen dispatch the query through its existing Cubit at the appropriate input or lifecycle event, then render the Cubit’s loading, error, empty, and data states. For data, replace the eager `Column` of all result tiles with a lazy `ListView.builder` (or `ListView.separated`) using the result count and indexed items. Keep the current scroll behavior by making the list the screen’s scrollable, or use the appropriate shrink-wrapped, non-scrollable configuration if it must sit inside an existing parent scroll view.
+
+This addresses the repeated-request risk and avoids constructing up to 10,000 tiles eagerly. The excerpt does not show the screen’s surrounding layout, so the exact list constraints depend on that parent; no profiler is available to quantify the improvement.

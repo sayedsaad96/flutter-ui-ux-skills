@@ -3,8 +3,10 @@ from __future__ import annotations
 import re
 import sys
 from pathlib import Path
+from urllib.parse import unquote, urlsplit
 
-NAME_RE = re.compile(r"^[A-Za-z0-9-]+$")
+NAME_RE = re.compile(r"^[a-z0-9]+(?:-[a-z0-9]+)*$")
+LINK_RE = re.compile(r"\[[^\]]*\]\(([^\s)]+)\)")
 
 
 def parse_frontmatter(path: Path) -> tuple[dict[str, str], list[str]]:
@@ -26,6 +28,8 @@ def parse_frontmatter(path: Path) -> tuple[dict[str, str], list[str]]:
             errors.append(f"{path}: invalid frontmatter line: {raw}")
             continue
         key, value = raw.split(":", 1)
+        if key.strip() in data:
+            errors.append(f"{path}: duplicate frontmatter key '{key.strip()}'")
         data[key.strip()] = value.strip().strip('"').strip("'")
     return data, errors
 
@@ -36,8 +40,15 @@ def validate_repository(root: Path) -> list[str]:
     if not skills_root.exists():
         return [f"{skills_root}: skills directory does not exist"]
 
+    skill_files = sorted(skills_root.glob("*/SKILL.md"))
+    if not skill_files:
+        errors.append(f"{skills_root}: no skills found")
+    for directory in sorted(skills_root.iterdir()):
+        if directory.is_dir() and not (directory / "SKILL.md").is_file():
+            errors.append(f"{directory}: missing SKILL.md")
+
     seen_names: dict[str, Path] = {}
-    for skill_file in sorted(skills_root.glob("*/SKILL.md")):
+    for skill_file in skill_files:
         folder = skill_file.parent.name
         data, parse_errors = parse_frontmatter(skill_file)
         errors.extend(parse_errors)
@@ -49,8 +60,8 @@ def validate_repository(root: Path) -> list[str]:
 
         if not name:
             errors.append(f"{skill_file}: missing name")
-        elif not NAME_RE.fullmatch(name):
-            errors.append(f"{skill_file}: name must contain only letters, numbers, and hyphens")
+        elif len(name) > 64 or not NAME_RE.fullmatch(name):
+            errors.append(f"{skill_file}: name must use lowercase letters, numbers, single internal hyphens and at most 64 characters")
         elif name != folder:
             errors.append(f"{skill_file}: name '{name}' must match folder '{folder}'")
 
@@ -72,6 +83,14 @@ def validate_repository(root: Path) -> list[str]:
         frontmatter_size = sum(len(line) + 1 for line in all_lines[1:end])
         if frontmatter_size > 1024:
             errors.append(f"{skill_file}: frontmatter exceeds 1024 characters")
+
+        for source in sorted(skill_file.parent.rglob("*.md")):
+            for link in LINK_RE.findall(source.read_text(encoding="utf-8")):
+                target = urlsplit(link)
+                if target.scheme or target.netloc or not target.path:
+                    continue
+                if not (source.parent / unquote(target.path)).is_file():
+                    errors.append(f"{source}: missing local reference '{link}'")
 
     return errors
 

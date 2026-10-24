@@ -1,6 +1,6 @@
 [project]
 name = "flutter-ui-ux-skills"
-version = "0.1.0rc1"
+version = "0.2.0rc1"
 requires-python = ">=3.10"
 description = "A design-engineering skill system for Flutter agents with behavioral evaluation."
 

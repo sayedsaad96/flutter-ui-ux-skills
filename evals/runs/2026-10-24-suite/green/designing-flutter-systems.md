@@ -1,0 +1,9 @@
+Keep the app’s quiet reading and annotation identity. Do not adopt purple gradients, replace the approved Arabic reading font, or add a component package: the request gives no product reason for a rebrand or evidence of a component gap.
+
+**Inspected evidence:** the theme already has muted green primary and red error roles; article screens use theme text styles; reading uses an approved Arabic font; two new screens use purple for links and destructive actions, irregular spacing (13/19/27), and large shadows; ReadingCard is shared by three screens. No screenshots or runtime checks were supplied.
+
+**Proposed system:** retain the existing ColorScheme roles, article typography, Arabic font, and ReadingCard. Use the existing primary role for links and actions, and the existing error role for destructive actions. Keep the established spacing rhythm where it is discoverable from existing patterns; normalize the two screens’ 13/19/27 values to those patterns rather than creating new tokens. Remove the new large shadows unless an existing component pattern establishes a need for elevation. Add no tokens or wrappers unless a role cannot be expressed by the current theme.
+
+**Minimal migration:** first map the two screens’ purple values, spacing, and shadows to current theme and component roles. Update those screens incrementally, preserving their state APIs and interactions. Then check the affected theme states and the three ReadingCard consumers for unintended changes; remove any obsolete screen-local values after their usages are migrated.
+
+Contrast, Arabic/English rendering, light/dark appearance, platform behavior, and runtime results are **NOT VERIFIED** without measurements and rendered checks.

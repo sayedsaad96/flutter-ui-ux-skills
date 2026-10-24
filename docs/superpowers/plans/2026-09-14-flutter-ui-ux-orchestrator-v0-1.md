@@ -1,5 +1,9 @@
 # Flutter UI/UX Orchestrator v0.1 Implementation Plan
 
+> Historical v0.1 scope. On 2026-10-24 the user explicitly requested completion
+> of all eleven skills. The original scope constraints below describe that earlier
+> plan; the current execution record is `2026-10-24-release-readiness.md`.
+
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
 **Goal:** Create the public `flutter-ui-ux-skills` repository foundation and ship the first verified skill, `flutter-ui-ux`, as a tested orchestrator that classifies Flutter UI/UX work, scopes it, uses available evidence, routes only the necessary capabilities, and reports verification honestly.
@@ -42,35 +46,44 @@
 
 ### Task 2: Define the Orchestrator Eval Contract Before Writing the Skill
 
-Not yet started. Next step per plan: create `evals/README.md`, `evals/rubrics/flutter-ui-ux-routing-rubric.md`, and six `evals/scenarios/*.md` files.
+Complete: six canonical prompts, isolated expectations and the routing rubric exist.
 
 ### Task 3: Run RED Baselines Without the Skill
 
-Not yet started.
+Complete historically: the September clean run captured six failing controls.
+Earlier contaminated records remain explicitly non-gating history.
 
 ### Task 4: Write the Minimal `flutter-ui-ux` Skill From Observed Failures
 
-Not yet started. Must not begin until Task 3's RED baseline is committed.
+Complete: the orchestrator exists; the October confirmation corrected a PRODUCT
+CREATE routing gap and added decision-owner routing for the full suite.
 
 ### Task 5: Run GREEN and REFACTOR Behavioral Evals
 
-Not yet started.
+Complete for explicit use: the September final gate failed 3/6 on activation;
+October explicit confirmation passes all six. Separate Codex discovery probes
+pass three UI positives and one non-UI negative; Antigravity remains unverified.
 
 ### Task 6: Build a Static Skill Validator With TDD
 
-Not yet started.
+Complete: metadata/reference validation and evidence integrity checks have
+regression coverage. The current local suite contains 24 passing tests.
 
 ### Task 7: Add CI for Static Repository Gates
 
-Not yet started.
+Complete: Windows/Ubuntu CI runs static tests, metadata/isolation/fingerprint
+checks, the complete-suite release evidence gate and the placeholder scan.
+Remote CI has not run for the unpushed candidate.
 
 ### Task 8: Publish v0.1 Documentation Without Overstating Capability
 
-Not yet started.
+Complete locally: README, contributing guidance, changelog and release-readiness
+report describe the complete 0.2.0rc1 candidate and its measured limitations.
 
 ### Task 9: Final Verification, Tagging, and Publication Gate
 
-Not yet started.
+Local verification complete. Tagging, push and publication remain separate
+maintainer actions; no v0.1.0 or v0.2.0 tag/release was created in this work.
 
 ---
 

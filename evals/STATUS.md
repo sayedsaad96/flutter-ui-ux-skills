@@ -1,40 +1,45 @@
-# Eval Release Status
+# Eval release status — 2026-10-24
 
-## Release gate: FAIL
+## Current target: complete eleven-skill 0.2.0rc1 candidate
 
-The first clean behavioral evaluation run (`2026-09-17-v0.1-clean`) was executed with 24 independent Antigravity target subagents across RED, GREEN, REFACTOR-1, and REFACTOR-2 phases with complete evaluator-file isolation and zero scenario drift.
+- All eleven planned skills are implemented.
+- Explicit-invocation orchestrator confirmation: **6/6 PASS** after the routing update.
+- Specialist/workflow application probes: **10/10 PASS**; one case per skill.
+- Targeted Codex discovery: **3 positive and 1 negative probe PASS**.
+- This is local candidate readiness, not a published/tagged release or proof of
+  app/device validation. See `docs/RELEASE_READINESS.md` for local test/install results.
 
-### Gate Verdicts
-- Clean RED: **FAIL (6/6)** (baseline failure confirmed)
-- Clean GREEN: **FAIL (2/6 PASS, 4/6 FAIL)**
-- Clean REFACTOR-1: **FAIL (2/6 PASS, 4/6 FAIL)**
-- Clean REFACTOR-2: **FAIL (3/6 PASS, 3/6 FAIL)**
-- **BEHAVIORAL RELEASE GATE: FAIL**
-- **v0.1.0: NOT READY**
+## Evidence
 
-### Scenario Results in REFACTOR-2 Confirmation
-- `routing-001-micro-touch-target.md`: **FAIL** (Agent bypassed skill activation and jumped directly into Dart MCP tool calls)
-- `routing-002-existing-redesign-evidence.md`: **PASS** (100% compliant: explicit composite mode, complexity, inspection gate, capability routing, verification plan)
-- `routing-003-audit-read-only.md`: **PASS** (100% compliant: explicit audit mode, complexity, blocked executive verdict, zero code modification, iOS unverified)
-- `routing-004-product-create.md`: **PASS** (100% compliant: explicit create mode, complexity, product foundation, audience/age exploration before implementation)
-- `routing-005-composite-review-fix.md`: **FAIL** (Agent bypassed skill activation and jumped directly into Dart MCP tool calls)
-- `pressure-001-skip-inspection-copy-reference.md`: **FAIL** (Agent triggered global `brainstorming` skill and omitted `flutter-ui-ux` entry contract block)
+- `evals/runs/2026-10-24-confirmation/`: two explicit-use confirmation phases;
+  initial PRODUCT CREATE routing gap and final passing six-case record.
+- `evals/runs/2026-10-24-suite/`: ten pre-authoring controls and ten skill-loaded
+  application captures with per-criterion evaluator scores.
+- `evals/runs/2026-10-24-discovery/`: three UI requests and one unrelated Dart task,
+  with target-reported action logs. These are limited, non-gating discovery probes.
+- `release-readiness.json`: current source and application artifact fingerprints.
 
-### Root Cause Analysis
-For the scenarios where `flutter-ui-ux/SKILL.md` was read by the agent (002, 003, 004), the refactored instructions exerted 100% behavioral control over classification, sizing, evidence gating, and routing. However, for scenarios 001, 005, and pressure-001, the skill failed to activate due to discovery/activation competition with lazy MCP tools (`dart-mcp-server` / `flutter_dart-mcp-server`) and global plugins (`brainstorming`). A skill's internal wording cannot control agent behavior unless the agent activates the skill.
+No target was given evaluator expectations. Targets were fresh Luna contexts
+with the normal inherited system/catalog, and instructed to restrict file reads.
+Isolation was not enforced by a per-agent tool sandbox. The application runs
+test guidance on supplied excerpts, requirements and logs, not compiled Flutter
+patches. No universal model/runtime reliability or improvement rate is inferred.
+Some controls already passed; those remain PASS rather than invented failures.
 
-## Canonical sources
+## Historical outcomes
 
-- Target-agent prompts: `evals/scenarios/` only.
-- Evaluator expectations: matching files in `evals/expectations/` only.
-- Scoring: `evals/rubrics/flutter-ui-ux-routing-rubric.md`.
-- Run evidence: `evals/runs/2026-09-17-v0.1-clean/`.
-- Scenario drift detection: `scripts/eval_manifest.py`.
+The September Antigravity run remains **FAIL (3/6 final PASS)**. Its activation
+failures are not erased by new Codex results. Earlier contaminated baselines and
+results remain non-gating history. The 0.1.0 release was never tagged here.
 
-## Scoring rule
+The new canonical confirmation explicitly invokes the skill. Separate Codex
+probes observe automatic loading in the previously troublesome UI task shapes,
+but do not establish Antigravity discovery. Explicit invocation remains the
+documented fallback.
 
-Use `PASS`, `FAIL`, `N/A`, or `NOT OBSERVABLE`. `FAIL` blocks. `NOT OBSERVABLE` blocks when the criterion should have been observable; it is not a pass-by-default. `N/A` requires a scenario-specific justification. All applicable criteria must be `PASS` in all six REFACTOR scenarios before release.
+## Gate interpretation
 
-## Evidence-access rule
-
-Scenario text declaring evidence “available” does not prove the target runtime could access it. Record `declared_evidence`, `actually_accessible_evidence`, and `tools_available` separately. Never fabricate inspection or validation from inaccessible code, screenshots, runtime, devices, or designs.
+All applicable criteria must PASS for the scoped application gate. NOT OBSERVABLE
+is not a pass. A semantic score requires review of the response and evidence;
+the release validator only detects missing records, nonpassing scores and drift.
+Absence of actual app evidence remains a limitation, not a fabricated success.

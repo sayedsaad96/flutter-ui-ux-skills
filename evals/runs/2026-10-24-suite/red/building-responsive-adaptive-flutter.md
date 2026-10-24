@@ -1,0 +1,9 @@
+Use the account panel’s local constraints, not the host window width or operating system, to choose its layout. At 420 logical pixels, a 600-pixel detail pane cannot fit beside the list, even though the overall window is 1440 pixels wide.
+
+Build the panel with `LayoutBuilder` and choose a breakpoint from the minimum usable widths of both panes, including their gap and padding. Render list and detail side by side only when the panel’s `constraints.maxWidth` meets that threshold; otherwise show one pane at a time, with a back action from detail to list. Keep the selected account in the existing Cubit and have both layouts read from that state.
+
+Preserve the list’s scroll position with a stable `ScrollController` owned above the layout switch, disposing it with its owner. Keep the list subtree mounted across layout changes (for example, with an `IndexedStack` in the narrow layout) so resizing does not recreate it and lose its scroll offset. Avoid keying the Cubit or list by width. When switching layouts, keep the same selection and detail state.
+
+For foldables, inspect `MediaQuery.displayFeatures` and account for any hinge or occluding feature when computing usable regions. Place content within a safe sub-screen rather than drawing across an occluded area; choose a pane based on available usable width.
+
+Adapt controls to input capabilities rather than platform labels: provide pointer hover and keyboard focus/activation on web, and ensure touch targets and gestures work on phones. Verify by resizing the constrained 420-pixel panel and wider panels, checking that selection and list offset remain unchanged, and checking the fold layout around its hinge.

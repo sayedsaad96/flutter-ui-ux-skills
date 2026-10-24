@@ -1,0 +1,5 @@
+- **P1 — Duplicate payment requests:** The submit button stays enabled during submission, and the log records two requests after two taps. Disable or otherwise guard repeat submission while a request is in flight; the service’s idempotency behavior is unknown, so duplicate charges cannot be ruled out.
+- **P1 — Entered address is lost on failure:** Error handling replaces the whole form with “Failed,” discarding the address. Preserve the entered values and present the error without removing the form.
+- **P2 — Close control lacks accessible identification:** The 28×28 close GestureDetector has no tooltip or explicit semantic label. Provide an accessible label and verify the control can be discovered and activated with assistive technology.
+- **P2 — Close target is small:** The close control is 28×28. Review its effective hit area against the platform’s touch-target guidance and enlarge it if needed.
+- **Evidence gap:** The reported behavior was observed on Android only. No iOS or accessible-runtime evidence was supplied, so cross-platform and assistive-technology behavior remain unverified.

@@ -1,0 +1,69 @@
+{
+  "date": "2026-10-24",
+  "platform": "Windows",
+  "node_version": "24.15.0",
+  "skills_cli_version": "1.7.4",
+  "source": "local skills directory",
+  "destination": "ignored temporary project under .eval-tmp/install-smoke",
+  "discovery": "11 skills found with skills add <local-source> --list",
+  "install": "skills add <local-source> --skill * --agent codex --copy --yes --json; exit 0, project scope",
+  "initial_cli_error": "--list and --json cannot be combined; retried --list alone successfully",
+  "checks": [
+    {
+      "name": "auditing-flutter-ui",
+      "source_sha256": "b3c3fc316012f281bb5ce3296f77bf56b3eef66bb64729b74cdb225a690e9474",
+      "installed_bytes_match": true
+    },
+    {
+      "name": "building-responsive-adaptive-flutter",
+      "source_sha256": "70cb813a6ed5ae27b5c63692ff98e2e87c4c080cd414e28d53f96e6e6ccb9308",
+      "installed_bytes_match": true
+    },
+    {
+      "name": "crafting-flutter-motion",
+      "source_sha256": "754316292c3604dd6c67a19e82811268c6e37a66fe195098851dc0fa7907aacb",
+      "installed_bytes_match": true
+    },
+    {
+      "name": "creating-flutter-ui",
+      "source_sha256": "1badf586885bf8651dc648c9d222e72046bd4281b39e2bb20c354dcf66af5762",
+      "installed_bytes_match": true
+    },
+    {
+      "name": "designing-flutter-systems",
+      "source_sha256": "d3ea6c7e9eff325d15319cf3914cb0c7b93336507609531bcdaf25c9700e49d1",
+      "installed_bytes_match": true
+    },
+    {
+      "name": "designing-inclusive-flutter",
+      "source_sha256": "fb7bc96e1cac29e74f3413efa67ad51169c902ea1789091474a06b35319bfcb1",
+      "installed_bytes_match": true
+    },
+    {
+      "name": "engineering-flutter-ui",
+      "source_sha256": "be2617133673d63f0b82a50810cb9b376787f1ec30a00be58d5ddae3691f3332",
+      "installed_bytes_match": true
+    },
+    {
+      "name": "flutter-ui-ux",
+      "source_sha256": "12eb268f3fa2d61a7033b482f046a981a4af129c42a8e5a2df99ab0049929445",
+      "installed_bytes_match": true
+    },
+    {
+      "name": "polishing-flutter-experiences",
+      "source_sha256": "e20451721f0e8b6111ba23f2a4f45eb3502abd530b4f3f77c1d0714af07fd96b",
+      "installed_bytes_match": true
+    },
+    {
+      "name": "redesigning-flutter-ui",
+      "source_sha256": "82f52b53c7c3f477f3378c0cd49362b723b17e676a32206bb4ed0bdcde90f0c8",
+      "installed_bytes_match": true
+    },
+    {
+      "name": "verifying-flutter-ui",
+      "source_sha256": "08378397b99d8daaa92e24b1a931367bd86d6f7b808d1c91a7a29326030d4e5b",
+      "installed_bytes_match": true
+    }
+  ],
+  "remote_install": "NOT VERIFIED; local candidate has not been pushed/tagged"
+}

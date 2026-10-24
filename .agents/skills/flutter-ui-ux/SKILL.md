@@ -71,6 +71,27 @@ This skill owns routing, not specialist knowledge. Name only the capabilities th
 
 Route by decision ownership (what kind of decision does this task require?), not by keyword matching. Do not load a full design workflow for a trivial change, and do not shortcut a product-scale task into a quick code patch.
 
+For PRODUCT CREATE, name both the current foundation decisions (visual systems,
+responsive/adaptive layout, inclusion, motion when relevant) and the later
+engineering, polish, and verification work. Naming a later capability is not a
+claim that its skill ran or that implementation was verified.
+
+When the matching skills are installed, select from these owners; load only
+the owners needed for the present decision. Each can also be used independently.
+
+| Decision | Skill |
+|---|---|
+| New experience workflow | `creating-flutter-ui` |
+| Existing experience workflow | `redesigning-flutter-ui` |
+| Read-only findings and priorities | `auditing-flutter-ui` |
+| Visual direction, tokens, component language | `designing-flutter-systems` |
+| Local layout and platform adaptation | `building-responsive-adaptive-flutter` |
+| Widget composition, state rendering, UI performance | `engineering-flutter-ui` |
+| Semantics, RTL, text scaling, input access | `designing-inclusive-flutter` |
+| Motion behavior and lifecycle | `crafting-flutter-motion` |
+| Hierarchy, alignment, density, perceived craft | `polishing-flutter-experiences` |
+| Evidence and final quality gate | `verifying-flutter-ui` |
+
 ## Composite Workflows
 
 - `AUDIT → REDESIGN → VERIFY`: diagnose and present findings before changing anything; fix only after diagnosis is stated; verify only what tooling/evidence actually allows.
@@ -79,6 +100,10 @@ Route by decision ownership (what kind of decision does this task require?), not
 ## Verification Contract
 
 State plainly what was and was not verified. If runtime is unavailable, runtime remains unverified — say so instead of implying it works. Never assert an outcome ("works well on tablet," "tested with users," "works across platforms") that was not actually checked. Partial platform coverage (e.g., Android only) must be disclosed, not smoothed over. Never claim to have inspected code, screenshots, runtime, or designs that were not actually accessible in the current runtime.
+
+For a cross-platform product or a flow with only Android evidence, name the
+unverified target platforms explicitly, including iOS when it has not been
+accessed. A generic verification disclaimer must not hide partial coverage.
 
 ## Mode-Specific Output Contract
 
